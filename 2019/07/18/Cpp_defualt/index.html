@@ -397,7 +397,7 @@ height:50vh;
     <article class="article-entry">
         <p>在阅读代码的时候，我发现许多代码用到了default语句，发现并不能理解这个语句在类里起了什么作用，于是我重新翻查了《C++ Primer》，在C++11新特性的介绍部分找到关于“=default”的介绍，发现依旧不能对这个语句有一个较好的理解。</p>
 <blockquote>
-<p>在C++新标准中，如果我们需要默认的行为，那么可以通过在参数列表后面写上=default来要求编译器生成构造函数。其中，=default既可以和声明一起出现在类的内部，也可以作为定义出现在类的外部。和其他函数一样，如果=default在类的内部，则默认构造函数是内联的；如果在类的外部，则该成员默认情况下不是内联的。</p>
+<p>在C++新标准中，如果我们需要默认的行为，那么可以通过在参数列表后面写上=default来要求编译器生成构造函数。其中，=default既可以和声明一起出现在类的内部，也可以作为定义出现在类的外部。和其他函数一样，如果=default在类的内部，则默认构造函数是内联的；如果在类的外部，则该成员默认情况下不是内联的.</p>
 </blockquote>
 <p>所以我重新查阅了一些资料，试图对default的原理与用法做一个简单的解析。</p>
 <h3 id="为什么要使用default"><a href="#为什么要使用default" class="headerlink" title="为什么要使用default"></a>为什么要使用default</h3><h4 id="获得编译器自动生成的默认特殊成员函数，以获得更高的代码执行效率！"><a href="#获得编译器自动生成的默认特殊成员函数，以获得更高的代码执行效率！" class="headerlink" title="获得编译器自动生成的默认特殊成员函数，以获得更高的代码执行效率！"></a><strong><em>获得编译器自动生成的默认特殊成员函数，以获得更高的代码执行效率！</em></strong></h4><p>拓展一下，类中有四种默认的成员函数 <del>另外两种暂时不谈</del>：</p>
@@ -441,8 +441,8 @@ height:50vh;
         <div class="license-wrapper">
             <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
             <p>原文链接：<a href="https://LiaoYuanF.github.io/2019/07/18/Cpp_defualt/">https://LiaoYuanF.github.io/2019/07/18/Cpp_defualt/</a>
-            <p>发表日期：<a href="https://LiaoYuanF.github.io/2019/07/18/Cpp_defualt/">July 18th 2019, 10:48:16 pm</a>
-            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/07/18/Cpp_defualt/">July 18th 2019, 11:04:02 pm</a>
+            <p>发表日期：<a href="https://LiaoYuanF.github.io/2019/07/18/Cpp_defualt/">July 18th 2019, 11:06:02 pm</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/07/18/Cpp_defualt/">July 18th 2019, 11:06:17 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -454,7 +454,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/07/17/hello-world/" title= "Hello World">
+                <a href= "/2019/07/18/first/" title= "Hello World">
                     <div class="prevTitle">Hello World</div>
                 </a>
             
@@ -598,9 +598,18 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -616,7 +625,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/18/Cpp_defualt/" >Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/18/first/" >Hello World</a>
         </li>
     
     
@@ -627,6 +636,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/18</span><a class="archive-post-title" href= "/2019/07/18/Cpp_defualt/" >Hello World</a>
+        </li>
     
     
         <li class="archive-post-item">
