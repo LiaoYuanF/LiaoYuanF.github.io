@@ -283,7 +283,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">796</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">791</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -412,7 +412,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>一点点用vector代替掉array，是我在开始学C++的过程中逐渐发生的，自己也没意识到，自己的代码中越来越少地出现以往十分依赖的array，而vector的使用频率逐渐高了起来。<br>今天写这篇blog，就是想讨论一下这两者之间的区别</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一点点用vector代替掉array，是我在开始学C++的过程中逐渐发生的，自己也没意识到，自己的代码中越来越少地出现以往十分依赖的array，而vector的使用频率逐渐高了起来。<br>今天写这篇blog，就是想讨论一下这两者之间的区别</p>
 <h3 id="首先，我先大略地总结一下这两者的相同点与不同点"><a href="#首先，我先大略地总结一下这两者的相同点与不同点" class="headerlink" title="首先，我先大略地总结一下这两者的相同点与不同点"></a>首先，我先大略地总结一下这两者的相同点与不同点</h3><table>
 <thead>
 <tr>
@@ -472,7 +472,7 @@ height:50vh;
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v.size()<span class="comment">//  返回容量，数组真是长度</span></span><br><span class="line">v.pop_back()<span class="comment">//   删除v的最后一个元素</span></span><br><span class="line">v.insert(pos,elem);  <span class="comment">// 在pos位置插入elem元素</span></span><br><span class="line">v.earse(pos)<span class="comment">//     删除pos位置的元素</span></span><br><span class="line">v.empty()<span class="comment">//       判断是否为空</span></span><br><span class="line">v.erase(beg,end)  <span class="comment">//删除[beg,end)区间的数据，传回下一个数据的位置</span></span><br><span class="line">v.insert(pos,elem)<span class="comment">// 在pos位置插入一个elem拷贝，传回新数据位置</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>《C++ primer》</p>
-<p>以上内容仅为个人的学习笔记，难免有些错漏，欢迎大家联系笔者讨论，如有斧正，不胜感激</p>
+<p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
 
     </article>
     <!-- license  -->
@@ -481,7 +481,7 @@ height:50vh;
             <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
             <p>原文链接：<a href="https://LiaoYuanF.github.io/2019/07/22/vector and array/">https://LiaoYuanF.github.io/2019/07/22/vector and array/</a>
             <p>发表日期：<a href="https://LiaoYuanF.github.io/2019/07/22/vector and array/">July 22nd 2019, 12:00:00 am</a>
-            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/07/22/vector and array/">July 23rd 2019, 12:02:28 pm</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/07/22/vector and array/">September 29th 2019, 12:26:35 am</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -498,7 +498,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/07/20/first/" title= "C++11新特性之default解析">
+                <a href= "/2019/07/20/C++ default/" title= "C++11新特性之default解析">
                     <div class="prevTitle">C++11新特性之default解析</div>
                 </a>
             
@@ -618,7 +618,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#首先，我先大略地总结一下这两者的相同点与不同点"><span class="toc-number">1.</span> <span class="toc-text">首先，我先大略地总结一下这两者的相同点与不同点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来主要来说一下vector的具体用法"><span class="toc-number">2.</span> <span class="toc-text">接下来主要来说一下vector的具体用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vector的初始化"><span class="toc-number">2.1.</span> <span class="toc-text">vector的初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vector的输入与输出"><span class="toc-number">2.2.</span> <span class="toc-text">vector的输入与输出</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-添加元素"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.添加元素</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-读取元素"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.读取元素</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#另外还有一些vector的常用操作"><span class="toc-number">2.2.3.</span> <span class="toc-text">另外还有一些vector的常用操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#首先，我先大略地总结一下这两者的相同点与不同点"><span class="toc-number">2.</span> <span class="toc-text">首先，我先大略地总结一下这两者的相同点与不同点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来主要来说一下vector的具体用法"><span class="toc-number">3.</span> <span class="toc-text">接下来主要来说一下vector的具体用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vector的初始化"><span class="toc-number">3.1.</span> <span class="toc-text">vector的初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vector的输入与输出"><span class="toc-number">3.2.</span> <span class="toc-text">vector的输入与输出</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-添加元素"><span class="toc-number">3.2.1.</span> <span class="toc-text">1.添加元素</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-读取元素"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.读取元素</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#另外还有一些vector的常用操作"><span class="toc-number">3.2.3.</span> <span class="toc-text">另外还有一些vector的常用操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -690,9 +690,28 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 7
+        Total : 8
         </div>
         <!-- search  -->
         
@@ -705,6 +724,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/random student data/" >Python3随机学生数据生成</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -738,7 +762,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2019/07/20/first/" >C++11新特性之default解析</a>
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2019/07/20/C++ default/" >C++11新特性之default解析</a>
         </li>
     
     </div>

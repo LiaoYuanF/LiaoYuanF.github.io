@@ -283,7 +283,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">312</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">344</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -412,7 +412,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>关于C++的:: , . , -&gt;三种操作符的用法<br>总是傻傻分不清<br>报错时虽然挺好处理，大不了三个操作符挨个试一遍,但总归是个麻烦<br>所以现在抽空把这三个的用法做一个区分</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>关于C++的:: , . , -&gt;三种操作符的用法<br>总是傻傻分不清<br>报错时虽然挺好处理，大不了三个操作符挨个试一遍,但总归是个麻烦<br>所以现在抽空把这三个的用法做一个区分</p>
 <h4 id="是域操作符，是等级最高的，有三种用法"><a href="#是域操作符，是等级最高的，有三种用法" class="headerlink" title="::是域操作符，是等级最高的，有三种用法"></a>::是域操作符，是等级最高的，有三种用法</h4><p>全局作用域符</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::name</span><br></pre></td></tr></table></figure>
 
@@ -424,6 +424,7 @@ height:50vh;
 
 <h4 id="gt-是-a-b的一个速记符号"><a href="#gt-是-a-b的一个速记符号" class="headerlink" title="-&gt;是(*a).b的一个速记符号"></a>-&gt;是(*a).b的一个速记符号</h4><p>-&gt;是访问成员的操作符中唯一可以被重载的一个。所以，如果a是某个类的对象，并且该类重载了操作符-&gt;（通常是智能指针和迭代器），那么此时，操作符的意思就由类的具体的重载实现来决定。<br>1.如果a是个指针，b就是指针a指向的对象的一个成员；<br>2.如果a是某个重载了操作符-&gt;的类的对象，那么被重载过的-&gt;()方法就会被调用。</p>
 <h4 id="a-b"><a href="#a-b" class="headerlink" title=".a.b"></a>.a.b</h4><p>仅仅用于b是一个对象a（或对于这个对象的引用）的成员之一。<br>对于a.b，a一定是某个类的一个具体的对象（或对于这个对象的引用）。</p>
+<p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
 
     </article>
     <!-- license  -->
@@ -432,7 +433,7 @@ height:50vh;
             <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
             <p>原文链接：<a href="https://LiaoYuanF.github.io/2019/07/30/domain operator/">https://LiaoYuanF.github.io/2019/07/30/domain operator/</a>
             <p>发表日期：<a href="https://LiaoYuanF.github.io/2019/07/30/domain operator/">July 30th 2019, 12:00:00 am</a>
-            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/07/30/domain operator/">July 30th 2019, 1:20:32 pm</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/07/30/domain operator/">September 29th 2019, 12:29:20 am</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -569,7 +570,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#是域操作符，是等级最高的，有三种用法"><span class="toc-number">1.</span> <span class="toc-text">::是域操作符，是等级最高的，有三种用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-是-a-b的一个速记符号"><span class="toc-number">2.</span> <span class="toc-text">-&gt;是(*a).b的一个速记符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#a-b"><span class="toc-number">3.</span> <span class="toc-text">.a.b</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#是域操作符，是等级最高的，有三种用法"><span class="toc-number">2.</span> <span class="toc-text">::是域操作符，是等级最高的，有三种用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-是-a-b的一个速记符号"><span class="toc-number">3.</span> <span class="toc-text">-&gt;是(*a).b的一个速记符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#a-b"><span class="toc-number">4.</span> <span class="toc-text">.a.b</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -641,9 +642,28 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 7
+        Total : 8
         </div>
         <!-- search  -->
         
@@ -656,6 +676,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/random student data/" >Python3随机学生数据生成</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -689,7 +714,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2019/07/20/first/" >C++11新特性之default解析</a>
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2019/07/20/C++ default/" >C++11新特性之default解析</a>
         </li>
     
     </div>
