@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="fengliaoyuan">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="fengliaoyuan">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>基于组件的UI自动化系统 · Fly&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-133654866-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fly&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">基于组件的UI自动化系统</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fly's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            基于组件的UI自动化系统
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "C++">C++</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3.3k</span>阅读时长: <span class="post-count reading-time">18 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/09/30</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>暑期的一项工作，完成一个Windows平台下的UI自动化工程，通过visual studio+QT+Cpp实现，已经完成的是UI界面的设计与开发，键盘鼠标的信息监听与Hook钩子的使用，通过xml文件的形式读写</p>
+<h3 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h3><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/qt_uia2.JPG?raw=true" alt="image"></p>
+<h3 id="前端界面"><a href="#前端界面" class="headerlink" title="前端界面"></a>前端界面</h3><p>我用QT做了个简单的前端界面，不得不说，我做的前端界面挺糟糕的，毕竟是从头学起，而且我对C++也不是很熟练，但好歹把基本的功能实现了，还存在的问题是在不同的分辨率的情况下界面内组件的比例不能保持不变，在高分辨的情况下（如ppt投影）会出现皱缩成一团的情况。</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/qt_uia1.JPG?raw=true" alt="image"></p>
+<p>ui_mainwindow.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">/********************************************************************************</span><br><span class="line">** Form generated from reading UI file &apos;mainwindow.ui&apos;</span><br><span class="line">**</span><br><span class="line">** Created by: Qt User Interface Compiler version 5.13.0</span><br><span class="line">**</span><br><span class="line">** WARNING! All changes made in this file will be lost when recompiling UI file!</span><br><span class="line">********************************************************************************/</span><br><span class="line"></span><br><span class="line">#ifndef UI_MAINWINDOW_H</span><br><span class="line">#define UI_MAINWINDOW_H</span><br><span class="line"></span><br><span class="line">#include &lt;QtCore/QVariant&gt;</span><br><span class="line">#include &lt;QtWidgets/QApplication&gt;</span><br><span class="line">#include &lt;QtWidgets/QGridLayout&gt;</span><br><span class="line">#include &lt;QtWidgets/QLCDNumber&gt;</span><br><span class="line">#include &lt;QtWidgets/QLabel&gt;</span><br><span class="line">#include &lt;QtWidgets/QMainWindow&gt;</span><br><span class="line">#include &lt;QtWidgets/QPushButton&gt;</span><br><span class="line">#include &lt;QtWidgets/QStatusBar&gt;</span><br><span class="line">#include &lt;QtWidgets/QTextBrowser&gt;</span><br><span class="line">#include &lt;QtWidgets/QToolBar&gt;</span><br><span class="line">#include &lt;QtWidgets/QWidget&gt;</span><br><span class="line"></span><br><span class="line">QT_BEGIN_NAMESPACE</span><br><span class="line"></span><br><span class="line">class Ui_mainwindowClass</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    QWidget *centralWidget;</span><br><span class="line">    QWidget *layoutWidget;</span><br><span class="line">    QGridLayout *gridLayout;</span><br><span class="line">    QPushButton *btn_start;</span><br><span class="line">    QPushButton *btn_pause;</span><br><span class="line">    QPushButton *btn_point;</span><br><span class="line">    QTextBrowser *tb_display;</span><br><span class="line">    QTextBrowser *le_FilePath;</span><br><span class="line">    QPushButton *pb_SelectFile;</span><br><span class="line">    QPushButton *pb_SaveFile;</span><br><span class="line">    QLCDNumber *lcd_play;</span><br><span class="line">    QLabel *label;</span><br><span class="line">    QToolBar *mainToolBar;</span><br><span class="line">    QStatusBar *statusBar;</span><br><span class="line"></span><br><span class="line">    void setupUi(QMainWindow *mainwindowClass)</span><br><span class="line">    &#123;</span><br><span class="line">        if (mainwindowClass-&gt;objectName().isEmpty())</span><br><span class="line">            mainwindowClass-&gt;setObjectName(QString::fromUtf8(&quot;mainwindowClass&quot;));</span><br><span class="line">        mainwindowClass-&gt;resize(397, 338);</span><br><span class="line">        centralWidget = new QWidget(mainwindowClass);</span><br><span class="line">        centralWidget-&gt;setObjectName(QString::fromUtf8(&quot;centralWidget&quot;));</span><br><span class="line">        layoutWidget = new QWidget(centralWidget);</span><br><span class="line">        layoutWidget-&gt;setObjectName(QString::fromUtf8(&quot;layoutWidget&quot;));</span><br><span class="line">        layoutWidget-&gt;setGeometry(QRect(10, 10, 378, 299));</span><br><span class="line">        gridLayout = new QGridLayout(layoutWidget);</span><br><span class="line">        gridLayout-&gt;setSpacing(6);</span><br><span class="line">        gridLayout-&gt;setContentsMargins(11, 11, 11, 11);</span><br><span class="line">        gridLayout-&gt;setObjectName(QString::fromUtf8(&quot;gridLayout&quot;));</span><br><span class="line">        gridLayout-&gt;setContentsMargins(0, 0, 0, 0);</span><br><span class="line">        btn_start = new QPushButton(layoutWidget);</span><br><span class="line">        btn_start-&gt;setObjectName(QString::fromUtf8(&quot;btn_start&quot;));</span><br><span class="line">        btn_start-&gt;setEnabled(true);</span><br><span class="line">        btn_start-&gt;setMaximumSize(QSize(16777215, 200));</span><br><span class="line">        QFont font;</span><br><span class="line">        font.setFamily(QString::fromUtf8(&quot;\351\273\221\344\275\223&quot;));</span><br><span class="line">        font.setPointSize(14);</span><br><span class="line">        font.setItalic(false);</span><br><span class="line">        font.setUnderline(false);</span><br><span class="line">        font.setStrikeOut(false);</span><br><span class="line">        btn_start-&gt;setFont(font);</span><br><span class="line">        btn_start-&gt;setCursor(QCursor(Qt::PointingHandCursor));</span><br><span class="line">        btn_start-&gt;setMouseTracking(false);</span><br><span class="line">        btn_start-&gt;setFocusPolicy(Qt::ClickFocus);</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(btn_start, 1, 0, 1, 2);</span><br><span class="line"></span><br><span class="line">        btn_pause = new QPushButton(layoutWidget);</span><br><span class="line">        btn_pause-&gt;setObjectName(QString::fromUtf8(&quot;btn_pause&quot;));</span><br><span class="line">        btn_pause-&gt;setEnabled(true);</span><br><span class="line">        QFont font1;</span><br><span class="line">        font1.setFamily(QString::fromUtf8(&quot;\351\273\221\344\275\223&quot;));</span><br><span class="line">        font1.setPointSize(14);</span><br><span class="line">        btn_pause-&gt;setFont(font1);</span><br><span class="line">        btn_pause-&gt;setCursor(QCursor(Qt::PointingHandCursor));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(btn_pause, 1, 2, 1, 2);</span><br><span class="line"></span><br><span class="line">        btn_point = new QPushButton(layoutWidget);</span><br><span class="line">        btn_point-&gt;setObjectName(QString::fromUtf8(&quot;btn_point&quot;));</span><br><span class="line">        btn_point-&gt;setFont(font1);</span><br><span class="line">        btn_point-&gt;setCursor(QCursor(Qt::PointingHandCursor));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(btn_point, 1, 4, 1, 2);</span><br><span class="line"></span><br><span class="line">        tb_display = new QTextBrowser(layoutWidget);</span><br><span class="line">        tb_display-&gt;setObjectName(QString::fromUtf8(&quot;tb_display&quot;));</span><br><span class="line">        tb_display-&gt;setMaximumSize(QSize(600, 200));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(tb_display, 2, 0, 1, 6);</span><br><span class="line"></span><br><span class="line">        le_FilePath = new QTextBrowser(layoutWidget);</span><br><span class="line">        le_FilePath-&gt;setObjectName(QString::fromUtf8(&quot;le_FilePath&quot;));</span><br><span class="line">        le_FilePath-&gt;setMaximumSize(QSize(16777215, 50));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(le_FilePath, 3, 0, 1, 3);</span><br><span class="line"></span><br><span class="line">        pb_SelectFile = new QPushButton(layoutWidget);</span><br><span class="line">        pb_SelectFile-&gt;setObjectName(QString::fromUtf8(&quot;pb_SelectFile&quot;));</span><br><span class="line">        pb_SelectFile-&gt;setMaximumSize(QSize(16777215, 50));</span><br><span class="line">        QFont font2;</span><br><span class="line">        font2.setPointSize(11);</span><br><span class="line">        pb_SelectFile-&gt;setFont(font2);</span><br><span class="line">        pb_SelectFile-&gt;setCursor(QCursor(Qt::PointingHandCursor));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(pb_SelectFile, 3, 3, 1, 2);</span><br><span class="line"></span><br><span class="line">        pb_SaveFile = new QPushButton(layoutWidget);</span><br><span class="line">        pb_SaveFile-&gt;setObjectName(QString::fromUtf8(&quot;pb_SaveFile&quot;));</span><br><span class="line">        pb_SaveFile-&gt;setMaximumSize(QSize(16777215, 50));</span><br><span class="line">        pb_SaveFile-&gt;setFont(font2);</span><br><span class="line">        pb_SaveFile-&gt;setCursor(QCursor(Qt::PointingHandCursor));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(pb_SaveFile, 3, 5, 1, 1);</span><br><span class="line"></span><br><span class="line">        lcd_play = new QLCDNumber(layoutWidget);</span><br><span class="line">        lcd_play-&gt;setObjectName(QString::fromUtf8(&quot;lcd_play&quot;));</span><br><span class="line">        lcd_play-&gt;setMaximumSize(QSize(16777215, 50));</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(lcd_play, 0, 2, 1, 4);</span><br><span class="line"></span><br><span class="line">        label = new QLabel(layoutWidget);</span><br><span class="line">        label-&gt;setObjectName(QString::fromUtf8(&quot;label&quot;));</span><br><span class="line">        label-&gt;setFont(font1);</span><br><span class="line"></span><br><span class="line">        gridLayout-&gt;addWidget(label, 0, 0, 1, 2);</span><br><span class="line"></span><br><span class="line">        mainwindowClass-&gt;setCentralWidget(centralWidget);</span><br><span class="line">        mainToolBar = new QToolBar(mainwindowClass);</span><br><span class="line">        mainToolBar-&gt;setObjectName(QString::fromUtf8(&quot;mainToolBar&quot;));</span><br><span class="line">        mainwindowClass-&gt;addToolBar(Qt::TopToolBarArea, mainToolBar);</span><br><span class="line">        statusBar = new QStatusBar(mainwindowClass);</span><br><span class="line">        statusBar-&gt;setObjectName(QString::fromUtf8(&quot;statusBar&quot;));</span><br><span class="line">        mainwindowClass-&gt;setStatusBar(statusBar);</span><br><span class="line"></span><br><span class="line">        retranslateUi(mainwindowClass);</span><br><span class="line"></span><br><span class="line">        QMetaObject::connectSlotsByName(mainwindowClass);</span><br><span class="line">    &#125; // setupUi</span><br><span class="line"></span><br><span class="line">    void retranslateUi(QMainWindow *mainwindowClass)</span><br><span class="line">    &#123;</span><br><span class="line">        mainwindowClass-&gt;setWindowTitle(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;mainwindow&quot;, nullptr));</span><br><span class="line">#if QT_CONFIG(tooltip)</span><br><span class="line">        btn_start-&gt;setToolTip(QString());</span><br><span class="line">#endif // QT_CONFIG(tooltip)</span><br><span class="line">        btn_start-&gt;setText(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;start&quot;, nullptr));</span><br><span class="line">        btn_pause-&gt;setText(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;pause&quot;, nullptr));</span><br><span class="line">        btn_point-&gt;setText(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;continue&quot;, nullptr));</span><br><span class="line">        pb_SelectFile-&gt;setText(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;\351\200\211\346\213\251\346\226\207\344\273\266&quot;, nullptr));</span><br><span class="line">        pb_SaveFile-&gt;setText(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;\344\277\235\345\255\230\346\226\207\344\273\266&quot;, nullptr));</span><br><span class="line">        label-&gt;setText(QCoreApplication::translate(&quot;mainwindowClass&quot;, &quot;UI\350\207\252\345\212\250\345\214\226&quot;, nullptr));</span><br><span class="line">    &#125; // retranslateUi</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">namespace Ui &#123;</span><br><span class="line">    class mainwindowClass: public Ui_mainwindowClass &#123;&#125;;</span><br><span class="line">&#125; // namespace Ui</span><br><span class="line"></span><br><span class="line">QT_END_NAMESPACE</span><br><span class="line"></span><br><span class="line">#endif // UI_MAINWINDOW_H</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取键盘信息并写入xml文件（写成头文件形式）"><a href="#获取键盘信息并写入xml文件（写成头文件形式）" class="headerlink" title="获取键盘信息并写入xml文件（写成头文件形式）"></a>获取键盘信息并写入xml文件（写成头文件形式）</h3><p>mouse_keyboard.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br></pre></td><td class="code"><pre><span class="line">#pragma once</span><br><span class="line">#ifndef MOUSE_KEYBOARD_H</span><br><span class="line">#define MOUSE_KEYBOARD_H</span><br><span class="line">#include &quot;pch.h&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include&lt;uiautomationclient.h&gt;</span><br><span class="line">#include&lt;atlbase.h&gt;</span><br><span class="line">#include &lt;comutil.h&gt;</span><br><span class="line">#include &lt;cassert&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &quot;tinyxml.h&quot;</span><br><span class="line">#pragma comment(lib,&quot;comsupp.lib&quot;)</span><br><span class="line">#pragma comment(lib, &quot;comsuppw.lib&quot;)</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">HHOOK myhook, myhook1;</span><br><span class="line">HWND hgWnd;</span><br><span class="line"></span><br><span class="line">//鼠标信息</span><br><span class="line">typedef struct MouseXmlMessage</span><br><span class="line">&#123;</span><br><span class="line">	char action[400];</span><br><span class="line">	char name[400];</span><br><span class="line">	char classname[400];</span><br><span class="line">&#125;MouseXmlMessage;</span><br><span class="line">static MouseXmlMessage lastmessage = &#123; NULL,NULL,NULL &#125;; //记录上次获取的信息</span><br><span class="line"></span><br><span class="line">//键盘信息</span><br><span class="line">typedef struct KeyboardXmlMessage</span><br><span class="line">&#123;</span><br><span class="line">	char action[50];</span><br><span class="line">	PKBDLLHOOKSTRUCT lparam1;</span><br><span class="line">&#125;KeyboardXmlMessage;</span><br><span class="line">char c[2] = &#123;&#125;;  //记录键盘字符</span><br><span class="line"></span><br><span class="line">void MouseWriteXml(MouseXmlMessage message)</span><br><span class="line">&#123;</span><br><span class="line">	//xml文件的写入操作</span><br><span class="line">	//创建xml文件</span><br><span class="line">	TiXmlDocument doc;</span><br><span class="line">	doc.LoadFile(&quot;txt.xml&quot;);</span><br><span class="line">	TiXmlElement* rootElement = doc.RootElement();</span><br><span class="line">	//添加Action节点</span><br><span class="line">	TiXmlElement* ActionElement = new TiXmlElement(&quot;Action&quot;);</span><br><span class="line">	ActionElement-&gt;LinkEndChild(new TiXmlText(message.action));</span><br><span class="line">	rootElement-&gt;LinkEndChild(ActionElement);</span><br><span class="line">	//添加Name标签</span><br><span class="line">	TiXmlElement* NameElement = new TiXmlElement(&quot;Name&quot;);</span><br><span class="line">	NameElement-&gt;LinkEndChild(new TiXmlText(message.name));</span><br><span class="line">	rootElement-&gt;LinkEndChild(NameElement);</span><br><span class="line">	//添加Classname标签</span><br><span class="line">	TiXmlElement* ClassnameElement = new TiXmlElement(&quot;Classname&quot;);</span><br><span class="line">	ClassnameElement-&gt;LinkEndChild(new TiXmlText(message.classname));</span><br><span class="line">	rootElement-&gt;LinkEndChild(ClassnameElement);</span><br><span class="line">	doc.SaveFile(&quot;txt.xml&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void KeyboardWriteXml(KeyboardXmlMessage message)</span><br><span class="line">&#123;</span><br><span class="line">	//xml文件的写入操作</span><br><span class="line">	//创建xml文件</span><br><span class="line">	TiXmlDocument doc;</span><br><span class="line">	doc.LoadFile(&quot;txt.xml&quot;);</span><br><span class="line">	TiXmlElement* rootElement = doc.RootElement();</span><br><span class="line">	//添加Action节点</span><br><span class="line">	TiXmlElement* ActionElement = new TiXmlElement(&quot;Action&quot;);</span><br><span class="line">	rootElement-&gt;LinkEndChild(ActionElement);</span><br><span class="line">	ActionElement-&gt;LinkEndChild(new TiXmlText(&quot;Keyboard&quot;));</span><br><span class="line">	//添加type节点</span><br><span class="line">	TiXmlElement* TypeElement = new TiXmlElement(&quot;Type&quot;);</span><br><span class="line">	c[0] = message.lparam1-&gt;vkCode;</span><br><span class="line">	TypeElement-&gt;LinkEndChild(new TiXmlText(c));</span><br><span class="line">	rootElement-&gt;LinkEndChild(TypeElement);</span><br><span class="line"></span><br><span class="line">	doc.SaveFile(&quot;txt.xml&quot;);</span><br><span class="line">&#125;</span><br><span class="line">LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)</span><br><span class="line">&#123;</span><br><span class="line">	char text[60], pData[50], mData[50];</span><br><span class="line">	char info[30] = &#123;&#125;;</span><br><span class="line">	LPMSLLHOOKSTRUCT p = (LPMSLLHOOKSTRUCT)lParam;</span><br><span class="line">	POINT   pt = p-&gt;pt;</span><br><span class="line">	DWORD   mouseData = p-&gt;mouseData;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	if (nCode &gt;= 0)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		if (wParam == WM_MOUSEMOVE)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse move&quot;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		if (wParam == WM_LBUTTONDOWN)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse left button down&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_LBUTTONUP)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse left button up&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_LBUTTONDBLCLK)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse left button double click&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_RBUTTONDOWN)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse right button down&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_RBUTTONUP)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse right button up&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_RBUTTONDBLCLK)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;mouse right button double click&quot;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		int num1 = MultiByteToWideChar(0, 0, text, -1, NULL, 0);</span><br><span class="line">		int num2 = MultiByteToWideChar(0, 0, pData, -1, NULL, 0);</span><br><span class="line">		int num3 = MultiByteToWideChar(0, 0, mData, -1, NULL, 0);</span><br><span class="line">		wchar_t* wide1 = new wchar_t[num1];</span><br><span class="line">		wchar_t* wide2 = new wchar_t[num2];</span><br><span class="line">		wchar_t* wide3 = new wchar_t[num3];</span><br><span class="line">		MultiByteToWideChar(0, 0, text, -1, wide1, num1);</span><br><span class="line">		MultiByteToWideChar(0, 0, pData, -1, wide2, num2);</span><br><span class="line">		MultiByteToWideChar(0, 0, mData, -1, wide3, num3);</span><br><span class="line"></span><br><span class="line">		CComPtr&lt;IUIAutomation&gt; sp_auto1 = nullptr;</span><br><span class="line">		CComPtr&lt;IUIAutomationElement&gt; sp_element = nullptr;</span><br><span class="line"></span><br><span class="line">		HRESULT hr = ::CoCreateInstance(CLSID_CUIAutomation, NULL, CLSCTX_INPROC_SERVER, IID_IUIAutomation, reinterpret_cast&lt;void**&gt;(&amp;sp_auto1));</span><br><span class="line"></span><br><span class="line">		REQUIRE_SUCCESS_HR(sp_auto1-&gt;ElementFromPoint(pt, &amp;sp_element.p));</span><br><span class="line"></span><br><span class="line">		CComBSTR bstrclass;</span><br><span class="line">		REQUIRE_SUCCESS_HR(sp_element-&gt;get_CurrentClassName(&amp;bstrclass));</span><br><span class="line"></span><br><span class="line">		CComBSTR bstrName;</span><br><span class="line">		REQUIRE_SUCCESS_HR(sp_element-&gt;get_CurrentName(&amp;bstrName));</span><br><span class="line"></span><br><span class="line">		char* ClassName = _com_util::ConvertBSTRToString(bstrclass);</span><br><span class="line">		char* Name = _com_util::ConvertBSTRToString(bstrName);</span><br><span class="line"></span><br><span class="line">		char* Action = NULL;</span><br><span class="line">		Action = info;</span><br><span class="line"></span><br><span class="line">		//存储鼠标信息并写入xml文件</span><br><span class="line">		MouseXmlMessage message;</span><br><span class="line">		strcpy_s(message.classname, ClassName);</span><br><span class="line">		strcpy_s(message.name, Name);</span><br><span class="line">		strcpy_s(message.action, Action);</span><br><span class="line"></span><br><span class="line">		if (!((strcmp(message.action, lastmessage.action) == 0) &amp;&amp; (strcmp(message.classname, lastmessage.classname) == 0) &amp;&amp; (strcmp(message.name, lastmessage.name) == 0)))</span><br><span class="line">			//如果两次信息不一样，调用WriteXml()</span><br><span class="line">			MouseWriteXml(message);</span><br><span class="line">		strcpy_s(lastmessage.action, message.action);</span><br><span class="line">		strcpy_s(lastmessage.classname, message.classname);</span><br><span class="line">		strcpy_s(lastmessage.name, message.name);</span><br><span class="line">	&#125;</span><br><span class="line">	return CallNextHookEx(myhook, nCode, wParam, lParam);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)</span><br><span class="line">&#123;</span><br><span class="line">	char text[50], data[20];</span><br><span class="line">	char info[30] = &#123;&#125;;</span><br><span class="line">	PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)lParam;</span><br><span class="line">	HDC hdc;</span><br><span class="line"></span><br><span class="line">	if (nCode &gt;= 0)</span><br><span class="line">	&#123;</span><br><span class="line">		if (wParam == WM_KEYDOWN)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;Key Down&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_KEYUP)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;Key Up&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_SYSKEYDOWN)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;System Key Down&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (wParam == WM_SYSKEYUP)</span><br><span class="line">		&#123;</span><br><span class="line">			strcpy_s(info, &quot;System Key Up&quot;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		int num1 = MultiByteToWideChar(0, 0, text, -1, NULL, 0);</span><br><span class="line">		int num2 = MultiByteToWideChar(0, 0, data, -1, NULL, 0);</span><br><span class="line">		wchar_t* wide1 = new wchar_t[num1];</span><br><span class="line">		wchar_t* wide2 = new wchar_t[num2];</span><br><span class="line">		MultiByteToWideChar(0, 0, text, -1, wide1, num1);</span><br><span class="line">		MultiByteToWideChar(0, 0, data, -1, wide2, num2);</span><br><span class="line"></span><br><span class="line">		/*hdc = GetDC(hgWnd);</span><br><span class="line">		TextOut(hdc, 10, 10, wide1, strlen(text));</span><br><span class="line">		TextOut(hdc, 10, 30, wide2, strlen(data));</span><br><span class="line">		ReleaseDC(hgWnd, hdc);*/</span><br><span class="line"></span><br><span class="line">		char* Action = NULL;</span><br><span class="line">		Action = info;</span><br><span class="line"></span><br><span class="line">		//存储键盘信息并写入xml文件</span><br><span class="line">		KeyboardXmlMessage message;</span><br><span class="line">		strcpy_s(message.action, Action);</span><br><span class="line">		message.lparam1 = p;</span><br><span class="line">		KeyboardWriteXml(message);</span><br><span class="line">		delete[] info;</span><br><span class="line">	&#125;</span><br><span class="line">	return CallNextHookEx(myhook, nCode, wParam, lParam);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)</span><br><span class="line">//&#123;</span><br><span class="line">//	hgWnd = hwnd;</span><br><span class="line">//</span><br><span class="line">//	switch (msg)</span><br><span class="line">//	&#123;</span><br><span class="line">//	case WM_CLOSE:</span><br><span class="line">//		DestroyWindow(hwnd);</span><br><span class="line">//		break;</span><br><span class="line">//	case WM_DESTROY:</span><br><span class="line">//		PostQuitMessage(0);</span><br><span class="line">//		break;</span><br><span class="line">//	default:</span><br><span class="line">//		return DefWindowProc(hwnd, msg, wParam, lParam);</span><br><span class="line">//	&#125;</span><br><span class="line">//	return 0;</span><br><span class="line">//&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<h3 id="基础头文件-槽函数的定义"><a href="#基础头文件-槽函数的定义" class="headerlink" title="基础头文件(槽函数的定义)"></a>基础头文件(槽函数的定义)</h3><p>mainwindow.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#pragma once</span><br><span class="line">#ifndef mainwindow_H</span><br><span class="line">#define mainwindow_H</span><br><span class="line">#include &lt;Qmainwindow&gt;</span><br><span class="line">#include &lt;QTime&gt;</span><br><span class="line">#include &lt;QTimer&gt;</span><br><span class="line">#include &lt;QStandardItemModel&gt;</span><br><span class="line">#include &lt;QMenu&gt;</span><br><span class="line">#include &lt;QAction&gt;</span><br><span class="line">#include &lt;QTableWidget&gt;</span><br><span class="line">#include &quot;ui_mainwindow.h&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//namespace Ui &#123;</span><br><span class="line">//	class mainwindow;</span><br><span class="line">//&#125;</span><br><span class="line"></span><br><span class="line">class mainwindow : public QMainWindow</span><br><span class="line">&#123;</span><br><span class="line">	Q_OBJECT</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	explicit mainwindow(QWidget* parent = 0);</span><br><span class="line">	~mainwindow();</span><br><span class="line">	Ui_mainwindowClass* ui;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	void init();</span><br><span class="line"></span><br><span class="line">private slots:</span><br><span class="line"></span><br><span class="line">	void updateDisplay();</span><br><span class="line">	void on_btn_start_clicked();</span><br><span class="line">	void on_btn_stop_clicked();</span><br><span class="line">	void on_btn_pause_clicked();</span><br><span class="line">	void on_btn_point_clicked();</span><br><span class="line">	void on_pb_SelectFile_clicked();//选择文件</span><br><span class="line">	void on_pb_SaveFile_clicked();</span><br><span class="line">private:</span><br><span class="line">	</span><br><span class="line">	QTimer* pTimer;</span><br><span class="line">	QTime baseTime;</span><br><span class="line">	//显示的时间</span><br><span class="line">	QString timeStr;</span><br><span class="line">	QString FilePath;//记录文件的路径</span><br><span class="line">	QMenu* menu;    //菜单对象</span><br><span class="line">	bool OpenSeleteFile();//弹出选择文件对话框</span><br><span class="line">	void ShowTxtToWindow();//显示txt文件内容</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif // mainwindow_H</span><br></pre></td></tr></table></figure>
+
+<h3 id="主体代码"><a href="#主体代码" class="headerlink" title="主体代码"></a>主体代码</h3><p>main.cpp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;mainwindow.h&quot;</span><br><span class="line">#include &lt;QtWidgets/QApplication&gt;</span><br><span class="line">#include &lt;QObject&gt;</span><br><span class="line">#include &lt;QTextCodec&gt;</span><br><span class="line">#include &lt;tinyxml.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;tlhelp32.h&gt;</span><br><span class="line">#pragma execution_character_set(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	QApplication a(argc, argv);</span><br><span class="line">	mainwindow w;</span><br><span class="line">	w.setWindowTitle(QObject::tr(&quot;UIA_DEMO &quot;));</span><br><span class="line">	w.show();</span><br><span class="line">	return a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>mainwindow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;mainwindow.h&quot;</span><br><span class="line">#include &lt;QString&gt;</span><br><span class="line">#include &lt;QMessageBox&gt;</span><br><span class="line">#include &lt;QStandardItemModel&gt;</span><br><span class="line">#include &lt;QtableWidget&gt;</span><br><span class="line">#include &lt;QListWidget&gt;</span><br><span class="line">#include &lt;QDebug&gt;</span><br><span class="line">#include &lt;QVariant&gt;</span><br><span class="line">#include &lt;QMenu&gt;</span><br><span class="line">#include &lt;QAction&gt;</span><br><span class="line">#include &lt;QFileDialog&gt;</span><br><span class="line">#include &lt;QItemSelectionModel&gt;</span><br><span class="line">#include &lt;QModelIndexList&gt;</span><br><span class="line">#include &lt;QModelIndex&gt;</span><br><span class="line">#include &lt;QHeaderView&gt;</span><br><span class="line">#include &quot;mouse_keyboard.h&quot;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;tlhelp32.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">//#include &lt;DLL.h&gt;</span><br><span class="line">//#pragma comment(lib,&quot;Dll1.lib&quot;)</span><br><span class="line">using namespace std;</span><br><span class="line">int count = 1;</span><br><span class="line"></span><br><span class="line">mainwindow::mainwindow(QWidget* parent) :</span><br><span class="line">	QMainWindow(parent),</span><br><span class="line">	ui(new Ui_mainwindowClass)</span><br><span class="line">&#123;</span><br><span class="line">	ui-&gt;setupUi(this);</span><br><span class="line">	this-&gt;init();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mainwindow::~mainwindow()</span><br><span class="line">&#123;</span><br><span class="line">	delete this-&gt;pTimer;</span><br><span class="line">	delete ui;</span><br><span class="line">&#125;</span><br><span class="line">//初始化</span><br><span class="line">void mainwindow::init()</span><br><span class="line">&#123;</span><br><span class="line">	////默认显示</span><br><span class="line">	//this-&gt;ui-&gt;lcd_play-&gt;display(&quot;00:00:00:000&quot;);</span><br><span class="line"></span><br><span class="line">	//this-&gt;pTimer = new QTimer;</span><br><span class="line">	////绑定定时器的信号</span><br><span class="line">	//connect(this-&gt;pTimer, SIGNAL(timeout()), this, SLOT(updateDisplay()));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//开始</span><br><span class="line">void mainwindow::on_btn_start_clicked()</span><br><span class="line">&#123;</span><br><span class="line">	/*HWND hwnd;</span><br><span class="line">	MSG Msg;</span><br><span class="line">	const char szClassName[] = &quot;myWindowClass&quot;;</span><br><span class="line">	int num4 = MultiByteToWideChar(0, 0, szClassName, -1, NULL, 0);</span><br><span class="line">	wchar_t* wide4 = new wchar_t[num4];</span><br><span class="line">	MultiByteToWideChar(0, 0, szClassName, -1, wide4, num4);</span><br><span class="line">	qDebug() &lt;&lt; &quot;start installing&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	myhook = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, NULL, 0);</span><br><span class="line">	qDebug() &lt;&lt; &quot;installed mouse&quot; &lt;&lt; endl;</span><br><span class="line">	myhook1 = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);</span><br><span class="line">	qDebug() &lt;&lt; &quot;installed keyboard&quot; &lt;&lt; endl;*/</span><br><span class="line">	//while (GetMessage(&amp;Msg, NULL, 0, 0) &gt; 0)</span><br><span class="line">	//&#123;</span><br><span class="line">	//	TranslateMessage(&amp;Msg);</span><br><span class="line">	//	DispatchMessage(&amp;Msg);</span><br><span class="line">	//&#125;</span><br><span class="line"></span><br><span class="line">	HMODULE hdll = LoadLibraryEx(L&quot;D:\Desktop\DLLTEST\Dll1\Release\Dll1.dll&quot;,NULL,LOAD_WITH_ALTERED_SEARCH_PATH);</span><br><span class="line">	/*qDebug() &lt;&lt; hdll &lt;&lt; endl;*/</span><br><span class="line">	if (hdll == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		qDebug() &lt;&lt; &quot;ERROR&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	HOOKPROC hproc = (HOOKPROC)GetProcAddress(hdll, &quot;MouseProc&quot;);</span><br><span class="line">	HOOKPROC hproc1 = (HOOKPROC)GetProcAddress(hdll, &quot;KeyboardProc&quot;);</span><br><span class="line">	HHOOK myhook1= SetWindowsHookEx(WH_KEYBOARD_LL, hproc1, hdll, 0);</span><br><span class="line">	qDebug() &lt;&lt; &quot;installed mouse&quot; &lt;&lt; endl;</span><br><span class="line">	HHOOK myhook = SetWindowsHookEx(WH_MOUSE_LL, hproc, hdll, 0);</span><br><span class="line">	qDebug() &lt;&lt; &quot;installed keyboard&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">//结束</span><br><span class="line">void mainwindow::on_btn_stop_clicked()</span><br><span class="line">&#123;</span><br><span class="line">	//UnhookWindowsHookEx(myhook1);</span><br><span class="line">	//UnhookWindowsHookEx(myhook);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">//暂停</span><br><span class="line">void mainwindow::on_btn_pause_clicked()</span><br><span class="line">&#123;</span><br><span class="line">	//UnhookWindowsHookEx(myhook1);</span><br><span class="line">	//UnhookWindowsHookEx(myhook);</span><br><span class="line">&#125;</span><br><span class="line">//打点</span><br><span class="line">void mainwindow::on_btn_point_clicked()</span><br><span class="line">&#123;</span><br><span class="line">	//QDateTime local(QDateTime::currentDateTime());</span><br><span class="line">	//QString localTime = local.toString(&quot;yyyy-MM-dd:hh:mm:ss&quot;);</span><br><span class="line">	////将timeStr添加到列表</span><br><span class="line">	//QString str1 = &quot;&quot;;</span><br><span class="line">	//QString d = QString::number(count);</span><br><span class="line">	//str1.append(d);</span><br><span class="line">	//str1.append(&quot;   &quot;);</span><br><span class="line">	//str1.append(this-&gt;timeStr);</span><br><span class="line">	//str1.append(&quot;   &quot;);</span><br><span class="line">	//str1.append(localTime);</span><br><span class="line">	//this-&gt;ui-&gt;tb_display-&gt;append(str1);</span><br><span class="line">	//count++;</span><br><span class="line">&#125;</span><br><span class="line">//更新时间</span><br><span class="line">void mainwindow::updateDisplay()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	QTime currTime = QTime::currentTime();</span><br><span class="line">	int t = this-&gt;baseTime.msecsTo(currTime);</span><br><span class="line">	QTime showTime(0, 0, 0, 0);</span><br><span class="line">	showTime = showTime.addMSecs(t);</span><br><span class="line">	this-&gt;timeStr = showTime.toString(&quot;hh:mm:ss:zzz&quot;);</span><br><span class="line">	this-&gt;ui-&gt;lcd_play-&gt;display(timeStr);</span><br><span class="line">&#125;</span><br><span class="line">void mainwindow::on_pb_SelectFile_clicked()//选择文件功能函数</span><br><span class="line">&#123;</span><br><span class="line">	if (false == OpenSeleteFile())//弹出选择文件对话框 如果成功选择文件，主线程myWidget类就有对象存储了文件路径</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	if (FilePath == &quot;&quot;)//如果没有选择文件，即文件路径为空</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	ui-&gt;le_FilePath-&gt;setText(FilePath);//如果选中了文件，setText() 或者 insert() 改变其中的文本,那么行编辑器中就会出现选中的文件的路径</span><br><span class="line">	ShowTxtToWindow();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void mainwindow::on_pb_SaveFile_clicked()//保存文件功能函数</span><br><span class="line">&#123;</span><br><span class="line">	QFile myfile(FilePath);//创建一个输出文件的文档</span><br><span class="line">	if (myfile.open(QFile::WriteOnly | QFile::Text))//注意WriteOnly是往文本中写入的时候用，ReadOnly是在读文本中内容的时候用，Truncate表示将原来文件中的内容清空</span><br><span class="line">	&#123;</span><br><span class="line">		QTextStream out(&amp;myfile);</span><br><span class="line">		out &lt;&lt; ui-&gt;tb_display-&gt;toPlainText();</span><br><span class="line">	&#125;</span><br><span class="line">	ShowTxtToWindow();</span><br><span class="line">&#125;</span><br><span class="line">bool mainwindow::OpenSeleteFile()//弹出选择文件对话框</span><br><span class="line">&#123;</span><br><span class="line">	</span><br><span class="line">	QString strPath = QFileDialog::getOpenFileName(NULL, QString::fromUtf8(&quot;选择文件&quot;), &quot;&quot;, QObject::tr(&quot;txt(*.txt)&quot;));</span><br><span class="line">	if (strPath == &quot;&quot;)</span><br><span class="line">	&#123;</span><br><span class="line">		QMessageBox::information(this, QString::fromUtf8(&quot;提示&quot;), QString::fromUtf8(&quot;选择文件失败，无路径&quot;), &quot;OK&quot;);</span><br><span class="line">		return false;//用户点击的取消按钮</span><br><span class="line">	&#125;</span><br><span class="line">	FilePath = strPath;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void mainwindow::ShowTxtToWindow()//显示文本文件中的内容</span><br><span class="line">&#123;</span><br><span class="line">	QString fileName = FilePath;</span><br><span class="line"></span><br><span class="line">	if (!fileName.isEmpty())</span><br><span class="line">	&#123;</span><br><span class="line">		QFile* file = new QFile;</span><br><span class="line">		file-&gt;setFileName(fileName);</span><br><span class="line">		bool ok = file-&gt;open(QIODevice::ReadOnly);</span><br><span class="line">		if (ok)</span><br><span class="line">		&#123;</span><br><span class="line">			QTextStream in(file);</span><br><span class="line">			ui-&gt;tb_display-&gt;setText(in.readAll());</span><br><span class="line">			file-&gt;close();</span><br><span class="line">			delete file;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			QMessageBox::information(this, &quot;错误信息&quot;, &quot;打开文件:&quot; + file-&gt;errorString());</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一些其他的包含文件（用于xml文件的读写，可以自行下载）"><a href="#一些其他的包含文件（用于xml文件的读写，可以自行下载）" class="headerlink" title="一些其他的包含文件（用于xml文件的读写，可以自行下载）"></a>一些其他的包含文件（用于xml文件的读写，可以自行下载）</h3><p>tinyxml_2_6_2<br>包含</p>
+<ul>
+<li>tinystr.cpp</li>
+<li>tinystr.h</li>
+<li>tinyxml.cpp</li>
+<li>tinyxml.h</li>
+<li>tinyxmlerror.cpp</li>
+<li>tinyxmlparser.cpp</li>
+<li>xmltest.cpp</li>
+</ul>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>这个项目并没有全部完成，事实上，就连已经完成的部分代码现在估计都不能跑起来的，我们基本已经实现了目标功能并测试通过，但在之后优化代码的过程中，我们想要通过dll链接两个文件，修改了部分代码，但没有完成，后来我们小组成员因为各自有事就耽搁了这个项目，现在回想起来，把手头的半成品记录一下，也算聊以自慰。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>Qt下载地址<br><a href="http://download.qt.io/archive/qt/" target="_blank" rel="noopener">http://download.qt.io/archive/qt/</a></li>
+<li>VS2017下载地址<br><a href="https://visualstudio.microsoft.com/zh-hans/downloads/" target="_blank" rel="noopener">https://visualstudio.microsoft.com/zh-hans/downloads/</a></li>
+<li>Qt配置参考资料<br><a href="https://www.cnblogs.com/nyx159/p/7583533.html" target="_blank" rel="noopener">https://www.cnblogs.com/nyx159/p/7583533.html</a></li>
+<li>Qt Designer手册<br><a href="https://doc.qt.io/qt-5/qtdesigner-manual.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qtdesigner-manual.html</a></li>
+<li>消息队列<br><a href="https://blog.csdn.net/liulianglin/article/details/14449577" target="_blank" rel="noopener">https://blog.csdn.net/liulianglin/article/details/14449577</a></li>
+<li>Hook基础<br><a href="https://www.cnblogs.com/fanling999/p/4592740.html" target="_blank" rel="noopener">https://www.cnblogs.com/fanling999/p/4592740.html</a></li>
+<li>Hook钩子监听<br><a href="https://lellansin.wordpress.com/2013/08/15/windows-api-%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%EF%BC%89-hook-%E9%92%A9%E5%AD%90%E7%9B%91%E5%90%AC%EF%BC%88%E7%BC%96%E5%86%99%E4%B8%AD%EF%BC%89/" target="_blank" rel="noopener">https://lellansin.wordpress.com/2013/08/15/windows-api-%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%EF%BC%89-hook-%E9%92%A9%E5%AD%90%E7%9B%91%E5%90%AC%EF%BC%88%E7%BC%96%E5%86%99%E4%B8%AD%EF%BC%89/</a></li>
+<li>全局Hook<br><a href="https://blog.csdn.net/ljheee/article/details/52040233" target="_blank" rel="noopener">https://blog.csdn.net/ljheee/article/details/52040233</a></li>
+<li>如何使用DLL<br><a href="http://www.cppblog.com/suiaiguo/archive/2009/07/20/90621.html" target="_blank" rel="noopener">http://www.cppblog.com/suiaiguo/archive/2009/07/20/90621.html</a></li>
+<li>在vs2017中创建dll项目<br><a href="https://blog.csdn.net/cynophile/article/details/79749524" target="_blank" rel="noopener">https://blog.csdn.net/cynophile/article/details/79749524</a></li>
+<li>UIAutomation文档<br><a href="https://docs.microsoft.com/en-us/windows/win32/winauto/entry-uiauto-win32" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/win32/winauto/entry-uiauto-win32</a></li>
+<li>项目用例<br><a href="https://github.com/microsoft/WinAppDriver/tree/master/Tools/UIRecorder" target="_blank" rel="noopener">https://github.com/microsoft/WinAppDriver/tree/master/Tools/UIRecorder</a></li>
+</ul>
+<p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
+            <p>原文链接：<a href="https://LiaoYuanF.github.io/2019/09/30/qt_UIA/">https://LiaoYuanF.github.io/2019/09/30/qt_UIA/</a>
+            <p>发表日期：<a href="https://LiaoYuanF.github.io/2019/09/30/qt_UIA/">September 30th 2019, 12:00:00 am</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2019/09/30/qt_UIA/">September 30th 2019, 5:30:42 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/10/08/graphical output 2/" title= "Python3实现图元输出（二）">
+                    <div class="nextTitle">Python3实现图元输出（二）</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/09/29/random student data/" title= "Python3随机学生数据生成">
+                    <div class="prevTitle">Python3随机学生数据生成</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:fengliaoyuan@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/LiaoYuanF" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/images/weixin.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件目录"><span class="toc-number">2.</span> <span class="toc-text">文件目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端界面"><span class="toc-number">3.</span> <span class="toc-text">前端界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取键盘信息并写入xml文件（写成头文件形式）"><span class="toc-number">4.</span> <span class="toc-text">获取键盘信息并写入xml文件（写成头文件形式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基础头文件-槽函数的定义"><span class="toc-number">5.</span> <span class="toc-text">基础头文件(槽函数的定义)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主体代码"><span class="toc-number">6.</span> <span class="toc-text">主体代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些其他的包含文件（用于xml文件的读写，可以自行下载）"><span class="toc-number">7.</span> <span class="toc-text">一些其他的包含文件（用于xml文件的读写，可以自行下载）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记"><span class="toc-number">8.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">9.</span> <span class="toc-text">参考资料</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 12
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2019/11/04/Line_rotate/" >直线绕点集变换中心旋转</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/ml_1/" >Python3通过flask动态调节码率直播视频并传输</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/video transmission by flask/" >Python3通过flask动态调节码率直播视频并传输</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/graphical output 2/" >Python3实现图元输出（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/2019/09/30/qt_UIA/" >基于组件的UI自动化系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/random student data/" >Python3随机学生数据生成</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2019/09/25/graphical output/" >Python3实现图元输出（DDA直线算法，中心圆，中心椭圆）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href= "/2019/08/25/pythook/" >Python2完成windows平台上鼠标键盘Hook功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2019/08/24/socket1/" >python3实现socket传输文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/domain operator/" >关于C++的三种操作符的用法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/22</span><a class="archive-post-title" href= "/2019/07/22/vector and array/" >C++的array与vector</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2019/07/20/C++ default/" >C++11新特性之default解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="python3"><span class="iconfont-archer">&#xe606;</span>python3</span>
+    
+        <span class="sidebar-tag-name" data-tags="图形学"><span class="iconfont-archer">&#xe606;</span>图形学</span>
+    
+        <span class="sidebar-tag-name" data-tags="python2"><span class="iconfont-archer">&#xe606;</span>python2</span>
+    
+        <span class="sidebar-tag-name" data-tags="flask"><span class="iconfont-archer">&#xe606;</span>flask</span>
+    
+        <span class="sidebar-tag-name" data-tags="socket"><span class="iconfont-archer">&#xe606;</span>socket</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "fengliaoyuan"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
