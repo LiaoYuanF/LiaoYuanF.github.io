@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="fengliaoyuan">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="fengliaoyuan">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Hive实现表的拼接与更新 · Fly&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-133654866-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fly&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Hive实现表的拼接与更新</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fly's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Hive实现表的拼接与更新
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/17</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>用HIVE实现以下2个需求：</p>
+<p>1.ods_hour 表和 dwd_bd_coordinate 表拼接（拼接条件：两张表的 lng、lat 列相等），生成的数据插入 cdm.dwd_hour 表。<br>示例：<br>ods_hour + dwd_bd_coordinate  =&gt;  dwd_hour （拼接条件：lng、lat 列相等）</p>
+<p>2.查询dwd_hour每个省的最新日期对应的字段，结果数据插入dwd_hour_latest 表。<br>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from dwd_hour_latest</span><br></pre></td></tr></table></figure>
+
+<p>province      provincecode         daytime<br>云南省          530000             20190531  &lt;&lt;&lt; 注意这里的值：20190531<br>海省              630000             20190522</p>
+<p>云南省的最新时间是 2019-05-31，如果新增数据中，云南省的最新时间是 2019-06-03，那么就需要更新云南省的时间为 20190603<br>province      provincecode         daytime<br>云南省          530000             20190603  &lt;&lt;&lt; 注意这里的值：20190603<br>海省              630000             20190522  </p>
+<h3 id="测试数据样例"><a href="#测试数据样例" class="headerlink" title="测试数据样例"></a>测试数据样例</h3><p>1.dwd_bd_coordinate.txt 百度坐标表数据</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">云南省西双版纳傣族自治州勐腊县<span class="number">532823</span><span class="number">101.721101</span><span class="number">21.365233</span><span class="number">101.72905871</span><span class="number">21.36851355</span></span><br><span class="line">云南省西双版纳傣族自治州勐腊县<span class="number">532823</span><span class="number">101.721101</span><span class="number">21.374578</span><span class="number">101.72906776</span><span class="number">21.37785938</span></span><br><span class="line">云南省西双版纳傣族自治州勐腊县<span class="number">532823</span><span class="number">101.721101</span><span class="number">21.407287</span><span class="number">101.72907122</span><span class="number">21.41056478</span></span><br><span class="line">云南省西双版纳傣族自治州勐腊县<span class="number">532823</span><span class="number">101.721101</span><span class="number">21.475042</span><span class="number">101.72905142</span><span class="number">21.47830361</span></span><br><span class="line">云南省西双版纳傣族自治州勐腊县<span class="number">532823</span><span class="number">101.721101</span><span class="number">21.484387</span><span class="number">101.72906104</span><span class="number">21.48764865</span></span><br><span class="line">云南省西双版纳傣族自治州勐腊县<span class="number">532823</span><span class="number">101.721101</span><span class="number">21.517096</span><span class="number">101.72907915</span><span class="number">21.5203539</span></span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">云南省西双版纳傣族自治州勐海县<span class="number">532822</span><span class="number">99.999515</span><span class="number">21.984369</span><span class="number">100.00707944</span><span class="number">21.98740047</span></span><br><span class="line">云南省西双版纳傣族自治州勐海县<span class="number">532822</span><span class="number">99.999515</span><span class="number">22.00306</span><span class="number">100.00707902</span><span class="number">22.00608232</span></span><br><span class="line">云南省西双版纳傣族自治州勐海县<span class="number">532822</span><span class="number">99.999515</span><span class="number">22.019414</span><span class="number">100.00706608</span><span class="number">22.02242562</span></span><br><span class="line">云南省西双版纳傣族自治州勐海县<span class="number">532822</span><span class="number">99.999515</span><span class="number">22.042778</span><span class="number">100.00704627</span><span class="number">22.04577417</span></span><br><span class="line">云南省西双版纳傣族自治州勐海县<span class="number">532822</span><span class="number">99.999515</span><span class="number">22.052123</span><span class="number">100.00704385</span><span class="number">22.05511426</span></span><br><span class="line">云南省西双版纳傣族自治州勐海县<span class="number">532822</span><span class="number">99.999515</span><span class="number">22.096514</span><span class="number">100.0070772</span><span class="number">22.0994924</span></span><br></pre></td></tr></table></figure>
+
+<p>2.ods_hour.txt  小时表数据</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">西双版纳傣族自治州<span class="number">101.721101</span><span class="number">21.365233</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">迪庆藏族自治州<span class="number">100.005923</span><span class="number">27.083479</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">曲靖市<span class="number">103.993765</span><span class="number">24.633803</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">迪庆藏族自治州<span class="number">99.219889</span><span class="number">28.29605</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">迪庆藏族自治州<span class="number">99.313872</span><span class="number">28.069423</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">曲靖市<span class="number">104.294936</span><span class="number">26.291452</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">迪庆藏族自治州<span class="number">99.798735</span><span class="number">28.547209</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">曲靖市<span class="number">103.314529</span><span class="number">26.507565</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br><span class="line">曲靖市<span class="number">104.386782</span><span class="number">26.360375</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="操作思路"><a href="#操作思路" class="headerlink" title="操作思路"></a>操作思路</h3><p>1.建库建表，在fly数据库下建四张表<br>2.上传测试文件到表里<br>3.表的拼接：比较小时表和坐标表，如果经纬度相同则拼接</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select province,t2.city,county,provinceCode,cityCode,countycode,t1.lng,t1.lat,totalnum,mannum,<span class="function">wonum from ods_hour t1 join dwd_bd_coordinate t2 <span class="title">on</span> <span class="params">(t1.lat=t2.lat <span class="keyword">and</span> t1.lng=t2.lng )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>4.表的更新：查询拼接表中省份的最新字段，将结果插入更新表里</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into dwd_hour_latest select province,provinceCode,max(daytime)  daytime from dwd_hour group by province,provinceCode;</span><br></pre></td></tr></table></figure>
+
+<h3 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h3><h4 id="建表："><a href="#建表：" class="headerlink" title="建表："></a>建表：</h4><h5 id="ods-ods-hour-小时表，每天都会新增数据"><a href="#ods-ods-hour-小时表，每天都会新增数据" class="headerlink" title="ods.ods_hour 小时表，每天都会新增数据"></a>ods.ods_hour 小时表，每天都会新增数据</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create table ods.ods_hour</span><br><span class="line">(city string comment '城市',</span><br><span class="line">lng string comment '经度',</span><br><span class="line">lat string comment '维度',</span><br><span class="line">totalNum int comment '总人数',</span><br><span class="line">manNum int comment '男性人数',</span><br><span class="line">woNum int comment '女性人数')</span><br><span class="line">comment '数据小时表（原始格式）' </span><br><span class="line">partitioned by (daytime string comment '日期。本字段的原始名称：date')</span><br><span class="line">row format delimited fields terminated by '\001' stored as textfile;</span><br></pre></td></tr></table></figure>
+
+<h5 id="cdm-dwd-bd-coordinate-百度坐标的字典表，表的数据是固定的，不会新增"><a href="#cdm-dwd-bd-coordinate-百度坐标的字典表，表的数据是固定的，不会新增" class="headerlink" title="cdm.dwd_bd_coordinate 百度坐标的字典表，表的数据是固定的，不会新增"></a>cdm.dwd_bd_coordinate 百度坐标的字典表，表的数据是固定的，不会新增</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table cdm.dwd_bd_coordinate</span><br><span class="line">( province string comment '省名称',</span><br><span class="line">city string comment '市名称', </span><br><span class="line">county string comment '区县',</span><br><span class="line">countyCode string comment '区县编码',</span><br><span class="line">lng string comment '经度', </span><br><span class="line">lat string comment '纬度')</span><br><span class="line">comment '百度坐标点表（区县）' partitioned by (provinceCode string comment '省编码', cityCode string comment '市编码') </span><br><span class="line">row format delimited fields terminated by '\001' stored as textfile;</span><br></pre></td></tr></table></figure>
+
+<h5 id="fly-dwd-hour-小时表和百度坐标表拼接表"><a href="#fly-dwd-hour-小时表和百度坐标表拼接表" class="headerlink" title="fly.dwd_hour  小时表和百度坐标表拼接表"></a>fly.dwd_hour  小时表和百度坐标表拼接表</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">create table fly.dwd_hour</span><br><span class="line">(province string comment '省名称',</span><br><span class="line">city string comment '市名称', </span><br><span class="line">county string comment '区县名称', </span><br><span class="line">provinceCode string comment '省编码', </span><br><span class="line">cityCode string comment '市编码', </span><br><span class="line">countycode string comment '区县编码',</span><br><span class="line">lng string comment '经度', </span><br><span class="line">lat string comment '纬度', </span><br><span class="line">totalnum int comment '总人口', </span><br><span class="line">mannum <span class="keyword">int</span> comment <span class="string">'男'</span>,</span><br><span class="line">wonum <span class="keyword">int</span> comment <span class="string">'女'</span>)</span><br><span class="line">comment '小时数据分区表 (dwd)' partitioned by (daytime string comment '日期', times string comment '小时时间点') </span><br><span class="line">row format delimited fields terminated by '\001' stored as textfile;</span><br><span class="line">``` </span><br><span class="line">![image](https:<span class="comment">//github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/hive1.jpg?raw=true)</span></span><br><span class="line"></span><br><span class="line">##### fly.dwd_hour_latest 联通小时表中，每个省最新的日期表()</span><br><span class="line">```cpp</span><br><span class="line">create table fly.dwd_hour_latest</span><br><span class="line">(province string comment '省名称',	provinceCode string comment '省编码', daytime string comment '日期') </span><br><span class="line">comment '联通小时表中，每个省最新的日期' </span><br><span class="line">row format delimited fields terminated by '\001' stored as textfile;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/hive2.jpg?raw=true" alt="image"></p>
+<h4 id="表拼接"><a href="#表拼接" class="headerlink" title="表拼接"></a>表拼接</h4><h5 id="语句一"><a href="#语句一" class="headerlink" title="语句一"></a>语句一</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select province,t2.city,county,provinceCode,cityCode,countycode,t1.lng,t1.lat,totalnum,mannum,wonum from </span><br><span class="line">ods.ods_hour t1 join cdm.dwd_bd_coordinate t2 </span><br><span class="line">on (t1.lat=t2.lat <span class="keyword">and</span> t1.lng=t2.lng ); </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">##### 语句二</span><br><span class="line">```cpp</span><br><span class="line">insert into fly.<span class="function">dwd_hour <span class="title">partition</span><span class="params">(daytime,times)</span> </span></span><br><span class="line">select province,t2.city,county,provinceCode,cityCode,countycode,t1.lng,t1.lat,totalnum,mannum,wonum,daytime,0 from ods.ods_hour t1 join cdm.dwd_bd_coordinate t2 </span><br><span class="line">on (t1.lat=t2.lat <span class="keyword">and</span> t1.lng=t2.lng );</span><br></pre></td></tr></table></figure>
+
+<h5 id="出现报错"><a href="#出现报错" class="headerlink" title="出现报错"></a>出现报错</h5><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/hive3.jpg?raw=true" alt="image"></p>
+<p>解决：<br>因为要做动态分区, 所以要先设定partition参数<br>由于default是false, 需要额外下指令打开这个开关<br>default是strick, 表示不允许动态分区, 所以要改成nostrick</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/hive4.jpg?raw=true" alt="image"> </p>
+<h5 id="继续执行，查看结果"><a href="#继续执行，查看结果" class="headerlink" title="继续执行，查看结果"></a>继续执行，查看结果</h5><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/hive5.jpg?raw=true" alt="image"> </p>
+<h4 id="表更新"><a href="#表更新" class="headerlink" title="表更新"></a>表更新</h4><h5 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into fly.dwd_hour_latest select province,provinceCode,max(daytime)  daytime </span><br><span class="line">from fly.dwd_hour group by province,provinceCode;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看结果"><a href="#查看结果" class="headerlink" title="查看结果"></a>查看结果</h5><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/hive6.jpg?raw=true" alt="image"> </p>
+<p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
+            <p>原文链接：<a href="https://LiaoYuanF.github.io/2020/02/17/hive/">https://LiaoYuanF.github.io/2020/02/17/hive/</a>
+            <p>发表日期：<a href="https://LiaoYuanF.github.io/2020/02/17/hive/">February 17th 2020, 12:00:00 am</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2020/02/17/hive/">February 17th 2020, 3:41:06 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/02/14/Hadoop config/" title= "Ubuntu18 Hadoop+Hive+MySQL开发环境配置手册">
+                    <div class="prevTitle">Ubuntu18 Hadoop+Hive+MySQL开发环境配置手册</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:fengliaoyuan@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/LiaoYuanF" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/images/weixin.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题面"><span class="toc-number">1.</span> <span class="toc-text">题面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试数据样例"><span class="toc-number">2.</span> <span class="toc-text">测试数据样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作思路"><span class="toc-number">3.</span> <span class="toc-text">操作思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体操作"><span class="toc-number">4.</span> <span class="toc-text">具体操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建表："><span class="toc-number">4.1.</span> <span class="toc-text">建表：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ods-ods-hour-小时表，每天都会新增数据"><span class="toc-number">4.1.1.</span> <span class="toc-text">ods.ods_hour 小时表，每天都会新增数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cdm-dwd-bd-coordinate-百度坐标的字典表，表的数据是固定的，不会新增"><span class="toc-number">4.1.2.</span> <span class="toc-text">cdm.dwd_bd_coordinate 百度坐标的字典表，表的数据是固定的，不会新增</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#fly-dwd-hour-小时表和百度坐标表拼接表"><span class="toc-number">4.1.3.</span> <span class="toc-text">fly.dwd_hour  小时表和百度坐标表拼接表</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表拼接"><span class="toc-number">4.2.</span> <span class="toc-text">表拼接</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语句一"><span class="toc-number">4.2.1.</span> <span class="toc-text">语句一</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#出现报错"><span class="toc-number">4.2.2.</span> <span class="toc-text">出现报错</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#继续执行，查看结果"><span class="toc-number">4.2.3.</span> <span class="toc-text">继续执行，查看结果</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表更新"><span class="toc-number">4.3.</span> <span class="toc-text">表更新</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语句"><span class="toc-number">4.3.1.</span> <span class="toc-text">语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看结果"><span class="toc-number">4.3.2.</span> <span class="toc-text">查看结果</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 15
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2020/02/17/hive/" >Hive实现表的拼接与更新</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/2020/02/14/Hadoop config/" >Ubuntu18 Hadoop+Hive+MySQL开发环境配置手册</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2020/02/11/leetcode5/" >LeetCode 5 寻找回文子串</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/10</span><a class="archive-post-title" href= "/2020/02/10/leetcode8/" >LeetCode 8 正则表达式一行解决！</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2019/11/04/Line_rotate/" >直线绕点集变换中心旋转</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/video transmission by flask/" >Python3通过flask动态调节码率直播视频并传输</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/graphical output 2/" >Python3实现图元输出（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/2019/09/30/qt_UIA/" >基于组件的UI自动化系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/random student data/" >Python3随机学生数据生成</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2019/09/25/graphical output/" >Python3实现图元输出（DDA直线算法，中心圆，中心椭圆）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href= "/2019/08/25/pythook/" >Python2完成windows平台上鼠标键盘Hook功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2019/08/24/socket1/" >python3实现socket传输文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/domain operator/" >关于C++的三种操作符的用法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/22</span><a class="archive-post-title" href= "/2019/07/22/vector and array/" >C++的array与vector</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2019/07/20/C++ default/" >C++11新特性之default解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="python3"><span class="iconfont-archer">&#xe606;</span>python3</span>
+    
+        <span class="sidebar-tag-name" data-tags="图形学"><span class="iconfont-archer">&#xe606;</span>图形学</span>
+    
+        <span class="sidebar-tag-name" data-tags="python2"><span class="iconfont-archer">&#xe606;</span>python2</span>
+    
+        <span class="sidebar-tag-name" data-tags="flask"><span class="iconfont-archer">&#xe606;</span>flask</span>
+    
+        <span class="sidebar-tag-name" data-tags="socket"><span class="iconfont-archer">&#xe606;</span>socket</span>
+    
+        <span class="sidebar-tag-name" data-tags="leetcode"><span class="iconfont-archer">&#xe606;</span>leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="hadoop"><span class="iconfont-archer">&#xe606;</span>hadoop</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="hive"><span class="iconfont-archer">&#xe606;</span>hive</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "fengliaoyuan"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
