@@ -78,6 +78,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -212,10 +214,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -231,34 +231,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Fly's Blog
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -395,405 +382,10 @@ height:50vh;
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/17/hive/" >
-            
-                <span>Hive实现表的拼接与更新</span>
-        </a>
-        <div class="abstract-content">
-            题面用HIVE实现以下2个需求：
-1.ods_hour 表和 dwd_bd_coordinate 表拼接（拼接条件：两张表的 lng、lat 列相等），生成的数据插入 cdm.dwd_hour ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/14/Hadoop config/" >
-            
-                <span>Ubuntu18 Hadoop+Hive+MySQL开发环境配置手册</span>
-        </a>
-        <div class="abstract-content">
-            前言由于我写的上一篇blog，《hadoop开发环境配置手册》，在环境变量的配置方便出现了问题，导致hadoop用户与主用户的环境变量出现了问题，甚至出现重启之后无法登陆ubuntu图形化界面的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hadoop">hadoop</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/11/leetcode5/" >
-            
-                <span>LeetCode 5 寻找回文子串</span>
-        </a>
-        <div class="abstract-content">
-            题面给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
-思路
-遇事不决先穷举，如果一时找不到思路的话，那就先暴力求解试一试
-
-直接遍历整个字符串寻找回文串，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/10/leetcode8/" >
-            
-                <span>LeetCode 8 正则表达式一行解决！</span>
-        </a>
-        <div class="abstract-content">
-            题面请你来实现一个 atoi 函数，使其能将字符串转换成整数。
-首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
-当我们寻找到的第一个非空字符为正或者负号时，则将...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/10</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "正则表达式">正则表达式</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/04/Line_rotate/" >
-            
-                <span>直线绕点集变换中心旋转</span>
-        </a>
-        <div class="abstract-content">
-            前言题目概述：
-
-Consider there are n points in a plane, let’s denote the set of points as V, any three p...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图形学">图形学</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/24/video transmission by flask/" >
-            
-                <span>Python3通过flask动态调节码率直播视频并传输</span>
-        </a>
-        <div class="abstract-content">
-            前言之前实现了通过socket套接字传输视频。事实上，效果并不理想，主要原因有二：
-
-延迟太过于明显
-图片缺失严重
-
-这导致我们的成果的演示效果非常之差，现在我发现了一个有趣的东西，flask！...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "flask">flask</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/08/graphical output 2/" >
-            
-                <span>Python3实现图元输出（二）</span>
-        </a>
-        <div class="abstract-content">
-            前言前段时间在学习计算机图形学的过程中大致用散点图模拟了DDA直线算法，中心圆，中心椭圆输出算法，现在抽空整理了一下，增加了BRESENHAM直线算法，增加了图形界面，增加了逐点刷新的图形输出功...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图形学">图形学</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/09/30/qt_UIA/" >
-            
-                <span>基于组件的UI自动化系统</span>
-        </a>
-        <div class="abstract-content">
-            前言暑期的一项工作，完成一个Windows平台下的UI自动化工程，通过visual studio+QT+Cpp实现，已经完成的是UI界面的设计与开发，键盘鼠标的信息监听与Hook钩子的使用，通过...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/30</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "C++">C++</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/09/29/random student data/" >
-            
-                <span>Python3随机学生数据生成</span>
-        </a>
-        <div class="abstract-content">
-            前言之前做了个随机学生数据生成的题，生成随机手机号码和随机生日的部分有点意思，所以写了一下代码，顺便记录一下
-题目要求
-实验数据生成：
-实验需要一批人员的基本信息，包括姓名、性别、学号、班级、学...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src= /images/dog.jpg >
-    <div class="profile-name">Fly</div>
-    
-    <div class="profile-signature">
-        Go for the messes - that&#39;s where the action is
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:fengliaoyuan@outlook.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/LiaoYuanF" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-            
-                <span class="iconfont-archer wechat" title=wechat>
-                  
-                  <img class="profile-qr" src="/images/weixin.jpg" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href= https://www.v2ex.com/?r=flynnlemon target="_black">v2ex</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href= https://www.zhihu.com/people/xing-huo-58-69 target="_black">zhihu</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href = "/about" >ABOUT ME</a>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">

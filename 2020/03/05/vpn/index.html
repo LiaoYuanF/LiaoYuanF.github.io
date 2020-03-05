@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Fly&#39;s Blog</title>
+    <title>VPN下ping不通谷歌的分析 · Fly&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -77,6 +77,8 @@
 
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -212,14 +214,23 @@
 </head>
 
     
-        <body class="home-body">
+        <body class="post-body">
     
     
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fly&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">VPN下ping不通谷歌的分析</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fly's Blog</a>
 </header>
@@ -238,17 +249,17 @@ height:50vh;
     <!-- 主页  -->
     
     
-    <!-- 文章页  -->
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Fly's Blog
-            <!-- 文章页  -->
+            VPN下ping不通谷歌的分析
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
@@ -256,12 +267,49 @@ height:50vh;
             <!-- 主页副标题  -->
             
             
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络">计算机网络</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">931</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/05</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -362,438 +410,116 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/05/vpn/" >
-            
-                <span>VPN下ping不通谷歌的分析</span>
-        </a>
-        <div class="abstract-content">
-            前言前不久,我忽然发现了一个很奇怪的现象:在连接VPN代理（ShowdowSocksR）的情况下，可以直接通过web网页访问外网，但无法ping通
-所以我做了个小测试看看是哪边出了问题
-我的PC...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络">计算机网络</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/17/hive/" >
-            
-                <span>Hive实现表的拼接与更新</span>
-        </a>
-        <div class="abstract-content">
-            题面用HIVE实现以下2个需求：
-1.ods_hour 表和 dwd_bd_coordinate 表拼接（拼接条件：两张表的 lng、lat 列相等），生成的数据插入 cdm.dwd_hour ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/14/Hadoop config/" >
-            
-                <span>Ubuntu18 Hadoop+Hive+MySQL开发环境配置手册</span>
-        </a>
-        <div class="abstract-content">
-            前言由于我写的上一篇blog，《hadoop开发环境配置手册》，在环境变量的配置方便出现了问题，导致hadoop用户与主用户的环境变量出现了问题，甚至出现重启之后无法登陆ubuntu图形化界面的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hadoop">hadoop</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/11/leetcode5/" >
-            
-                <span>LeetCode 5 寻找回文子串</span>
-        </a>
-        <div class="abstract-content">
-            题面给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
-思路
-遇事不决先穷举，如果一时找不到思路的话，那就先暴力求解试一试
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前不久,我忽然发现了一个很奇怪的现象:在连接VPN代理（ShowdowSocksR）的情况下，可以直接通过web网页访问外网，但无法ping通</p>
+<p>所以我做了个小测试看看是哪边出了问题</p>
+<h3 id="我的PC环境"><a href="#我的PC环境" class="headerlink" title="我的PC环境"></a>我的PC环境</h3><h4 id="本机IP"><a href="#本机IP" class="headerlink" title="本机IP"></a>本机IP</h4><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn1.jpg?raw=true" alt="image"></p>
+<h4 id="目标IP"><a href="#目标IP" class="headerlink" title="目标IP"></a>目标IP</h4><p>以谷歌为例，谷歌台湾的IP为172.217.27.132</p>
+<h4 id="vpn连接的服务器IP"><a href="#vpn连接的服务器IP" class="headerlink" title="vpn连接的服务器IP"></a>vpn连接的服务器IP</h4><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn2.jpg?raw=true" alt="image"></p>
+<h3 id="抓包分析"><a href="#抓包分析" class="headerlink" title="抓包分析"></a>抓包分析</h3><h4 id="连接VPN的情况下，直接通过web浏览器访问172-217-27-132，抓包"><a href="#连接VPN的情况下，直接通过web浏览器访问172-217-27-132，抓包" class="headerlink" title="连接VPN的情况下，直接通过web浏览器访问172.217.27.132，抓包"></a>连接VPN的情况下，直接通过web浏览器访问172.217.27.132，抓包</h4><p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn3.jpg?raw=true" alt="image"></p>
+<p>虽然网页访问正常，但是过滤源地址或者目标地址为172.217.27.132的数据包后<br>发现根本抓不到这个包</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn4.jpg?raw=true" alt="image"></p>
+<p>接下来我尝试一下能不能抓到与VPN IP 39.105.36.15相关的数据包</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn5.jpg?raw=true" alt="image"></p>
+<p>如图可以看到所有有关VPN 服务器IP 39.105.36.15的通信过程</p>
+<p>很明显，VPN 39.105.36.15的17282端口一直与我的IP 192.168.1.105通信</p>
+<h4 id="连接VPN的情况下，ping-目标IP-，抓包"><a href="#连接VPN的情况下，ping-目标IP-，抓包" class="headerlink" title="连接VPN的情况下，ping 目标IP ，抓包"></a>连接VPN的情况下，ping 目标IP ，抓包</h4><p>我接下来试试ping一下这个IP，虽然ping不通，但试一下能不能抓到请求报文</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn6.jpg?raw=true" alt="image"></p>
+<p>Ok，这次抓到包了，四次请求超时全部抓到了</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn7.jpg?raw=true" alt="image"></p>
+<p>接下来我尝试一下能不能抓到与VPN IP 39.105.36.15相关的数据包<br>这边出现了很奇怪的事情，我有四次请求超时，但之抓到了一个我的本地pc发给VPN服务器的请求包，并且没有收到应答</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn8.jpg?raw=true" alt="image"></p>
+<h4 id="VPN关闭的情况下，web访问目标IP，抓包"><a href="#VPN关闭的情况下，web访问目标IP，抓包" class="headerlink" title="VPN关闭的情况下，web访问目标IP，抓包"></a>VPN关闭的情况下，web访问目标IP，抓包</h4><p>我把VPN关闭，然后直接web浏览器访问谷歌<br>看一下这一次能不能抓到请求超时的包<br>Ok，抓到包了，清一色发给目标IP的包</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn9.jpg?raw=true" alt="image"></p>
+<p>也就是说，如果不开启VPN，那么web浏览器访问是能抓到与目标IP相关的包的，开启VPN，是抓不到与目标IP有关的包的了</p>
+<h4 id="VPN关闭的情况下，ping目标IP，抓包"><a href="#VPN关闭的情况下，ping目标IP，抓包" class="headerlink" title="VPN关闭的情况下，ping目标IP，抓包"></a>VPN关闭的情况下，ping目标IP，抓包</h4><p>不出意料</p>
+<p><img src="https://github.com/LiaoYuanF/LiaoYuanF.github.io/blob/master/images/vpn6.jpg?raw=true" alt="image"></p>
+<h3 id="稍微总结一下四种情况下的结果"><a href="#稍微总结一下四种情况下的结果" class="headerlink" title="稍微总结一下四种情况下的结果"></a>稍微总结一下四种情况下的结果</h3><table>
+<thead>
+<tr>
+<th>情况</th>
+<th>vpn状态</th>
+<th>访问结果</th>
+<th>抓包结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一</td>
+<td>开启</td>
+<td>web正常访问</td>
+<td>没抓到访问目标IP的包;有本机IP与vpn服务器的通信包</td>
+</tr>
+<tr>
+<td>二</td>
+<td>开启</td>
+<td>ping不通</td>
+<td>有访问目标IP的请求超时包;四次请求，只有一次本机IP对vpn服务器的请求包，并且没有收到应答</td>
+</tr>
+<tr>
+<td>三</td>
+<td>关闭</td>
+<td>web无法访问</td>
+<td>访问目标IP的请求超时包</td>
+</tr>
+<tr>
+<td>四</td>
+<td>关闭</td>
+<td>ping不通</td>
+<td>访问目标IP的请求超时包</td>
+</tr>
+</tbody></table>
+<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><p>根据我的这个结果进行初步分析(胡乱分析)</p>
+<h4 id="情况三四最简单最容易理解"><a href="#情况三四最简单最容易理解" class="headerlink" title="情况三四最简单最容易理解"></a>情况三四最简单最容易理解</h4><p>由于墙的存在，我无法访问目标IP，wiresahrk也抓到了我的请求超时的包</p>
+<h4 id="情况一也可以理解"><a href="#情况一也可以理解" class="headerlink" title="情况一也可以理解"></a>情况一也可以理解</h4><p>我通过连接VPN进行对目标IP的访问，所以本机的wireshark只能抓到大量我与VPN通信的数据包，而抓不到直接与目标IP有关的包</p>
+<h4 id="关键是情况二比较奇怪-也是我研究的问题所在"><a href="#关键是情况二比较奇怪-也是我研究的问题所在" class="headerlink" title="关键是情况二比较奇怪,也是我研究的问题所在"></a>关键是情况二比较奇怪,也是我研究的问题所在</h4><p>我的理解是，web，ping，vpn连接这三者不在同一个层次网络协议上</p>
+<p>首先是web浏览器访问，这个通过http协议，http协议在应用层</p>
+<p>然后是ping，这个通过ICMP协议，ICMP协议在网络层</p>
+<p>最后是vpn连接，我通过ShowdowSocksR进行连接，使用socks5代理，socks5代理使用SOCKS协议，SOCKS协议在传输层</p>
+<p>由于上一层协议的代理，对下层没有任何作用，所以出现了这个奇怪的现象。</p>
+<p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
 
-直接遍历整个字符串寻找回文串，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-</div>
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/10/leetcode8/" >
-            
-                <span>LeetCode 8 正则表达式一行解决！</span>
-        </a>
-        <div class="abstract-content">
-            题面请你来实现一个 atoi 函数，使其能将字符串转换成整数。
-首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
-当我们寻找到的第一个非空字符为正或者负号时，则将...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
+            <p>原文链接：<a href="https://LiaoYuanF.github.io/2020/03/05/vpn/">https://LiaoYuanF.github.io/2020/03/05/vpn/</a>
+            <p>发表日期：<a href="https://LiaoYuanF.github.io/2020/03/05/vpn/">March 5th 2020, 12:00:00 am</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2020/03/05/vpn/">March 5th 2020, 11:21:48 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/10</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "正则表达式">正则表达式</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/04/Line_rotate/" >
-            
-                <span>直线绕点集变换中心旋转</span>
-        </a>
-        <div class="abstract-content">
-            前言题目概述：
-
-Consider there are n points in a plane, let’s denote the set of points as V, any three p...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图形学">图形学</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/24/video transmission by flask/" >
-            
-                <span>Python3通过flask动态调节码率直播视频并传输</span>
-        </a>
-        <div class="abstract-content">
-            前言之前实现了通过socket套接字传输视频。事实上，效果并不理想，主要原因有二：
-
-延迟太过于明显
-图片缺失严重
-
-这导致我们的成果的演示效果非常之差，现在我发现了一个有趣的东西，flask！...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "flask">flask</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/08/graphical output 2/" >
-            
-                <span>Python3实现图元输出（二）</span>
-        </a>
-        <div class="abstract-content">
-            前言前段时间在学习计算机图形学的过程中大致用散点图模拟了DDA直线算法，中心圆，中心椭圆输出算法，现在抽空整理了一下，增加了BRESENHAM直线算法，增加了图形界面，增加了逐点刷新的图形输出功...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图形学">图形学</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/09/30/qt_UIA/" >
-            
-                <span>基于组件的UI自动化系统</span>
-        </a>
-        <div class="abstract-content">
-            前言暑期的一项工作，完成一个Windows平台下的UI自动化工程，通过visual studio+QT+Cpp实现，已经完成的是UI界面的设计与开发，键盘鼠标的信息监听与Hook钩子的使用，通过...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/30</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "C++">C++</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/09/29/random student data/" >
-            
-                <span>Python3随机学生数据生成</span>
-        </a>
-        <div class="abstract-content">
-            前言之前做了个随机学生数据生成的题，生成随机手机号码和随机生日的部分有点意思，所以写了一下代码，顺便记录一下
-题目要求
-实验数据生成：
-实验需要一批人员的基本信息，包括姓名、性别、学号、班级、学...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-</div>
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
-    </nav>
-    
-</main>
-            <!-- profile -->
+    <ul class="post-paginator">
+        <li class="next">
             
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src= /images/dog.jpg >
-    <div class="profile-name">Fly</div>
-    
-    <div class="profile-signature">
-        Go for the messes - that&#39;s where the action is
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
+        </li>
+        <li class="previous">
             
-                <a href="mailto:fengliaoyuan@outlook.com" class="iconfont-archer email" title=email ></a>
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/02/17/hive/" title= "Hive实现表的拼接与更新">
+                    <div class="prevTitle">Hive实现表的拼接与更新</div>
+                </a>
             
-        
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-        
-            
-                <a href="//github.com/LiaoYuanF" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
     
-        
-            
-                <span class="iconfont-archer wechat" title=wechat>
-                  
-                  <img class="profile-qr" src="/images/weixin.jpg" />
-                </span>
-            
-        
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
     
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
     
 
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href= https://www.v2ex.com/?r=flynnlemon target="_black">v2ex</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href= https://www.zhihu.com/people/xing-huo-58-69 target="_black">zhihu</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href = "/about" >ABOUT ME</a>
-        </div>
-    
-</div>
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
             
         </div>
         <footer class="footer footer-unloaded">
@@ -876,6 +602,24 @@ Consider there are n points in a plane, let’s denote the set of points as V, a
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我的PC环境"><span class="toc-number">2.</span> <span class="toc-text">我的PC环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#本机IP"><span class="toc-number">2.1.</span> <span class="toc-text">本机IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#目标IP"><span class="toc-number">2.2.</span> <span class="toc-text">目标IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vpn连接的服务器IP"><span class="toc-number">2.3.</span> <span class="toc-text">vpn连接的服务器IP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抓包分析"><span class="toc-number">3.</span> <span class="toc-text">抓包分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#连接VPN的情况下，直接通过web浏览器访问172-217-27-132，抓包"><span class="toc-number">3.1.</span> <span class="toc-text">连接VPN的情况下，直接通过web浏览器访问172.217.27.132，抓包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连接VPN的情况下，ping-目标IP-，抓包"><span class="toc-number">3.2.</span> <span class="toc-text">连接VPN的情况下，ping 目标IP ，抓包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VPN关闭的情况下，web访问目标IP，抓包"><span class="toc-number">3.3.</span> <span class="toc-text">VPN关闭的情况下，web访问目标IP，抓包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VPN关闭的情况下，ping目标IP，抓包"><span class="toc-number">3.4.</span> <span class="toc-text">VPN关闭的情况下，ping目标IP，抓包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#稍微总结一下四种情况下的结果"><span class="toc-number">4.</span> <span class="toc-text">稍微总结一下四种情况下的结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果分析"><span class="toc-number">5.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#情况三四最简单最容易理解"><span class="toc-number">5.1.</span> <span class="toc-text">情况三四最简单最容易理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#情况一也可以理解"><span class="toc-number">5.2.</span> <span class="toc-text">情况一也可以理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关键是情况二比较奇怪-也是我研究的问题所在"><span class="toc-number">5.3.</span> <span class="toc-text">关键是情况二比较奇怪,也是我研究的问题所在</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1290,6 +1034,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
