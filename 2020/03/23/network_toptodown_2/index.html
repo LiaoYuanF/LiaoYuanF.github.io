@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>win10下配置jdk环境之后javac命令不能使用的问题 · Fly&#39;s Blog</title>
+    <title>计算机网络:自顶而下学习笔记(第二章) · Fly&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/" >Fly&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">win10下配置jdk环境之后javac命令不能使用的问题</a>
+                <a href="#" class="post-name">计算机网络:自顶而下学习笔记(第二章)</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            win10下配置jdk环境之后javac命令不能使用的问题
+            计算机网络:自顶而下学习笔记(第二章)
             <!-- 404 -->
             
         </h1>
@@ -277,18 +277,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "java">java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络">计算机网络</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">257</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/03/08</span>
+                    <span class="post-intro-time">2020/03/23</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -412,16 +412,38 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在1703版win10的环境之上,搭建完java的开发环境后,出现了问题,cmd下使用Java和Java -version命令都没有问题,但Javac命令却提示出错</p>
-<p>虽然我的使用似乎没有受到影响,但还是耿耿于怀</p>
-<h3 id="问题所在"><a href="#问题所在" class="headerlink" title="问题所在"></a>问题所在</h3><p>在现在网上的各个教程中,提到系统环境变量的搭建,普遍是这样提的:</p>
-<blockquote>
-<p>在“用户变量”中新建一个“PATH”变量名，变量值为：%JAVA_HOME%\bin;（就是jdk的bin目录，记得后面有“；”号哦）</p>
-</blockquote>
-<p>这样操作,之前确实也一直没什么问题,直到不知道win10的哪个版本更新后</p>
-<p>因为系统的限制，path 变量只可以使用 JDK 的绝对路径</p>
-<p>例如%JAVA_HOME% 会无法识别，导致配置失败</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>在path变量下,使用JDK的绝对路径,即可使得这个错误不出现</p>
+        <h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><h4 id="应用层协议原理"><a href="#应用层协议原理" class="headerlink" title="应用层协议原理"></a>应用层协议原理</h4><h5 id="应用程序体系结构"><a href="#应用程序体系结构" class="headerlink" title="应用程序体系结构"></a>应用程序体系结构</h5><p>客户-服务器体系结构(C/S architecture)<br>依赖数据中心<br>经典的web应用程序</p>
+<p>P2P体系结构<br>对数据中心低依赖<br>对等方之间直接通讯<br>因特网电话,迅雷</p>
+<p>优势:可拓展性<br>挑战:ISP友好,安全性,激励</p>
+<h5 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h5><p>通信的主体是进程,单个进程是但歌词运行在端系统中的程序<br>进程之间的通信过程:<br>1.进程两端为客户与服务器(下载端为客户端,上传端为服务器)<br>2.进程与网络的接口:socket<br>关于socket:开发者可以控制他在应用层的一切,但只能控制他在运输层的协议或是几个简单地运输层参数<br>3.进程寻址:通过IP与端口号进行寻址</p>
+<h5 id="应用程序的运输层选择"><a href="#应用程序的运输层选择" class="headerlink" title="应用程序的运输层选择"></a>应用程序的运输层选择</h5><p>四个尺度评价运输层协议:<br>1.可靠性:能否提供可靠地数据传输<br>2.吞吐量:bandwidth-sensitive application 一般有着吞吐量要求,elastic application 一般没有硬性要求<br>3.定时:即对于延迟有着要求,典型的如同多方游戏<br>4.安全性:此处的安全性指的是该协议在运输过程中不会被第三方观察到</p>
+<h5 id="因特网提供的运输层服务"><a href="#因特网提供的运输层服务" class="headerlink" title="因特网提供的运输层服务"></a>因特网提供的运输层服务</h5><p>TCP:<br>面向连接服务:数据传输之前建立全双工连接,交换运输层的控制信息<br>可靠数据传输服务:无差错,有顺序,没有字节的冗余与丢失<br>拥塞控制机制:不一定直接有利于通信的进程,但有利于整个因特网网络</p>
+<p>UDP:<br>仅提供最小服务,是无连接的</p>
+<p>安全性:TCP与UDP都是明文,所以要通过额外的内容去实现,即 secure sockets layers (SSL), 这是一种TCP的加强,其实是在应用层上实现的</p>
+<h5 id="因特网不提供的运输层服务"><a href="#因特网不提供的运输层服务" class="headerlink" title="因特网不提供的运输层服务"></a>因特网不提供的运输层服务</h5><p>很明显,TCP与UDP都没有对定时与吞吐量对作出处理</p>
+<h5 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h5><p>部分应用层协议是由RFC文档定义的,因此位于公共域<br>部分应用层协议是专用的</p>
+<h4 id="Web与HTTP"><a href="#Web与HTTP" class="headerlink" title="Web与HTTP"></a>Web与HTTP</h4><h5 id="HTTP概况"><a href="#HTTP概况" class="headerlink" title="HTTP概况"></a>HTTP概况</h5><p>Web是一个网络应用<br>HTTP是一个应用层协议,即为hypertext transfer protocol, 超文本传输协议</p>
+<p>1.使用TCP作为运输层协议<br>2.使用C/S应用程序体系结构<br>3.是一个无状态协议:服务器不保存客户信息</p>
+<h5 id="非持续连接与持续连接"><a href="#非持续连接与持续连接" class="headerlink" title="非持续连接与持续连接"></a>非持续连接与持续连接</h5><p>非持续连接:每一个seq,ack由一个单独的TCP连接发送<br>持续连接:所有的seq,ack由相同的TCP连接发送</p>
+<p>1.采用非持续连接的HTTP<br>针对每一个请求的对象都要建立和维护一个TCP连接,服务器和客户都需要对此分配TCP的缓冲区和保持变量,会给服务器带来极大负担,同时每一个对象都会经受双倍RTT时延</p>
+<p>2.采用持续连接的HTTP<br>HTTP的默认模式就是带流水线的持续连接,他可以避开非持续连接的那些缺点</p>
+<h5 id="HTTP报文格式"><a href="#HTTP报文格式" class="headerlink" title="HTTP报文格式"></a>HTTP报文格式</h5><h6 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h6><p>请求行+首部行+实体主体<br>请求行:方法字段+URL字段+HTTP版本字段<br>方法字段-GET/POST/HEAD/PUT/EDLETE<br>首部行:<br>Host-指明对象所在主机<br>Connection<br>User agent-指明用户代理,即浏览器类型<br>Accept language-想要得到的对象的法语版本</p>
+<h6 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h6><p>状态行+首部行+实体主体<br>状态行:协议版本字段+状态码+状态信息<br>状态码-200/OK,301/Moved Permanently,400/Bad Request,404/Not Found,505/HTTP Version Not Ssupported<br>首部行:<br>Connection<br>Date-服务器发送报文的时间<br>Server-类似于User agent<br>Last Modified-对象创建或者最后修改时间<br>Content Length:被发送对象的字节数<br>Content Type:对象的类型</p>
+<h5 id="用户与服务器交互-cookie"><a href="#用户与服务器交互-cookie" class="headerlink" title="用户与服务器交互:cookie"></a>用户与服务器交互:cookie</h5><p>由四部分组成:<br>HTTP响应报文中的cookie首部行<br>HTTP请求报文中的cookie首部行<br>用户端保存一个cookie文件<br>web站点有一个后端数据库</p>
+<p>用途:<br>web站点用来识别用户身份</p>
+<h5 id="Web缓存"><a href="#Web缓存" class="headerlink" title="Web缓存"></a>Web缓存</h5><p>即为代理服务器<br>浏览器的完整请求过程:<br>1.浏览器建立一个到Web缓存器的TCP连接,并向缓存器中的对象发送一个HTTP请求<br>2.web缓存器检查本地,是否有被请求的对象的副本,有的话直接回响应报文<br>3.如果没有副本,就与该对象的初始服务器进行TCP连接,缓存器对初始服务器发请求,之后收到响应<br>4.收到对象时,在本地存一个副本,然后响应客户</p>
+<h5 id="条件GET方法"><a href="#条件GET方法" class="headerlink" title="条件GET方法"></a>条件GET方法</h5><p>作用:保证缓存器中的副本对象是最新的</p>
+<h4 id="文件传输协议-FTP"><a href="#文件传输协议-FTP" class="headerlink" title="文件传输协议:FTP"></a>文件传输协议:FTP</h4><p>HTTP与FTP的区别:<br>FTP使用两个TCP连接,一个用来控制连接,一个用来数据连接<br>FTP服务器必须在整个会话期间保存用户的状态</p>
+<h4 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h4><h5 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h5><p>user agent<br>mail server<br>simple mail transfer protocol</p>
+<h5 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h5><p>不使用中间邮件服务器</p>
+<h5 id="SMTP与HTTP的比较"><a href="#SMTP与HTTP的比较" class="headerlink" title="SMTP与HTTP的比较"></a>SMTP与HTTP的比较</h5><p>这两个协议都用于两台主机之间的信息传输,都使用持续连接<br>区别:<br>HTTP是一个拉协议;SMTP是一个推协议<br>SMTP受到编码的限制,即,报文使用7bite的ASCLL码形式,如果存在其他的都,如二进制文件,则需要重新编码之后再发送<br>HTTP,每个对象封装在一份响应报文中;SMTP所有对象封装在一个报文中</p>
+<h5 id="邮件访问协议"><a href="#邮件访问协议" class="headerlink" title="邮件访问协议"></a>邮件访问协议</h5><p>POP3<br>IMAP<br>基于web的电子邮件</p>
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>域名系统:一种主机名到IP地址的转换服务<br>通常被其他应用层协议所使用</p>
+<h5 id="DNS工作概述"><a href="#DNS工作概述" class="headerlink" title="DNS工作概述"></a>DNS工作概述</h5><p>1.DNS查询报文通过UDP发送</p>
+<p>2.关于集中式DNS服务器设计的不可行性:<br>单点故障<br>通信容量<br>远距离带来的高时延<br>难维护性<br>因此必须采用分布式方案</p>
+<p>3.三类DNS服务器:<br>根DNS服务器<br>顶级域DNS服务器<br>权威DNS服务器</p>
+<p>4.两种查询方式:迭代查询与递归查询</p>
+<h4 id="P2P应用"><a href="#P2P应用" class="headerlink" title="P2P应用"></a>P2P应用</h4><h4 id="TCP套接字编程"><a href="#TCP套接字编程" class="headerlink" title="TCP套接字编程"></a>TCP套接字编程</h4><h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p>《计算机网络:自顶而下方法》</p>
 <p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
 
     </article>
@@ -429,9 +451,9 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
-            <p>原文链接：<a href="https://LiaoYuanF.github.io/2020/03/08/java_en/">https://LiaoYuanF.github.io/2020/03/08/java_en/</a>
-            <p>发表日期：<a href="https://LiaoYuanF.github.io/2020/03/08/java_en/">March 8th 2020, 12:00:00 am</a>
-            <p>更新日期：<a href="https://LiaoYuanF.github.io/2020/03/08/java_en/">March 10th 2020, 5:12:45 pm</a>
+            <p>原文链接：<a href="https://LiaoYuanF.github.io/2020/03/23/network_toptodown_2/">https://LiaoYuanF.github.io/2020/03/23/network_toptodown_2/</a>
+            <p>发表日期：<a href="https://LiaoYuanF.github.io/2020/03/23/network_toptodown_2/">March 23rd 2020, 12:00:00 am</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2020/03/23/network_toptodown_2/">March 24th 2020, 9:48:51 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -439,17 +461,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/03/12/jianzhi_offer1/" title= "剑指offer习题整理(一)">
-                    <div class="nextTitle">剑指offer习题整理(一)</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/03/05/vpn/" title= "VPN下ping不通谷歌的分析">
-                    <div class="prevTitle">VPN下ping不通谷歌的分析</div>
+                <a href= "/2020/03/15/network_toptodown_1/" title= "计算机网络:自顶而下学习笔记(第一章)">
+                    <div class="prevTitle">计算机网络:自顶而下学习笔记(第一章)</div>
                 </a>
             
         </li>
@@ -568,7 +585,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题所在"><span class="toc-number">2.</span> <span class="toc-text">问题所在</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#应用层"><span class="toc-number">1.</span> <span class="toc-text">应用层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#应用层协议原理"><span class="toc-number">1.1.</span> <span class="toc-text">应用层协议原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#应用程序体系结构"><span class="toc-number">1.1.1.</span> <span class="toc-text">应用程序体系结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#进程通信"><span class="toc-number">1.1.2.</span> <span class="toc-text">进程通信</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#应用程序的运输层选择"><span class="toc-number">1.1.3.</span> <span class="toc-text">应用程序的运输层选择</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#因特网提供的运输层服务"><span class="toc-number">1.1.4.</span> <span class="toc-text">因特网提供的运输层服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#因特网不提供的运输层服务"><span class="toc-number">1.1.5.</span> <span class="toc-text">因特网不提供的运输层服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#应用层协议"><span class="toc-number">1.1.6.</span> <span class="toc-text">应用层协议</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web与HTTP"><span class="toc-number">1.2.</span> <span class="toc-text">Web与HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP概况"><span class="toc-number">1.2.1.</span> <span class="toc-text">HTTP概况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#非持续连接与持续连接"><span class="toc-number">1.2.2.</span> <span class="toc-text">非持续连接与持续连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP报文格式"><span class="toc-number">1.2.3.</span> <span class="toc-text">HTTP报文格式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#请求报文"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">请求报文</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#响应报文"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">响应报文</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#用户与服务器交互-cookie"><span class="toc-number">1.2.4.</span> <span class="toc-text">用户与服务器交互:cookie</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Web缓存"><span class="toc-number">1.2.5.</span> <span class="toc-text">Web缓存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#条件GET方法"><span class="toc-number">1.2.6.</span> <span class="toc-text">条件GET方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件传输协议-FTP"><span class="toc-number">1.3.</span> <span class="toc-text">文件传输协议:FTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#电子邮件"><span class="toc-number">1.4.</span> <span class="toc-text">电子邮件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#组成部分"><span class="toc-number">1.4.1.</span> <span class="toc-text">组成部分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SMTP协议"><span class="toc-number">1.4.2.</span> <span class="toc-text">SMTP协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SMTP与HTTP的比较"><span class="toc-number">1.4.3.</span> <span class="toc-text">SMTP与HTTP的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#邮件访问协议"><span class="toc-number">1.4.4.</span> <span class="toc-text">邮件访问协议</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS"><span class="toc-number">1.5.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DNS工作概述"><span class="toc-number">1.5.1.</span> <span class="toc-text">DNS工作概述</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P2P应用"><span class="toc-number">1.6.</span> <span class="toc-text">P2P应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP套接字编程"><span class="toc-number">1.7.</span> <span class="toc-text">TCP套接字编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考资料"><span class="toc-number">1.8.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
