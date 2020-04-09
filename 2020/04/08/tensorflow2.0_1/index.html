@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Fly&#39;s Blog</title>
+    <title>TensorFlow学习笔记(一) · Fly&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -214,12 +214,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fly&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">TensorFlow学习笔记(一)</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fly's Blog</a>
 </header>
@@ -231,24 +242,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            TensorFlow学习笔记(一)
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "神经网络">神经网络</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">532</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/04/08</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -349,340 +410,71 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/13/bp_minist/" >
-            
-                <span>BP神经网络实现对minist数据集的识别</span>
-        </a>
-        <div class="abstract-content">
-            minst数据集的介绍MNIST数据集(Mixed National Institute of Standards and Technology database)是美国国家标准与技术研究院收集...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "机器学习">机器学习</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/12/jianzhi_offer1/" >
-            
-                <span>剑指offer习题整理(一)</span>
-        </a>
-        <div class="abstract-content">
-            从尾到头打印链表输入一个链表，按链表值从尾到头的顺序返回一个ArrayList
-12345678910111213141516#用栈实现class Listnode(object):    de...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/08/java_en/" >
-            
-                <span>win10下配置jdk环境之后javac命令不能使用的问题</span>
-        </a>
-        <div class="abstract-content">
-            前言在1703版win10的环境之上,搭建完java的开发环境后,出现了问题,cmd下使用Java和Java -version命令都没有问题,但Javac命令却提示出错
-虽然我的使用似乎没有受到...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "java">java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/05/vpn/" >
-            
-                <span>VPN下ping不通谷歌的分析</span>
-        </a>
-        <div class="abstract-content">
-            前言前不久,我忽然发现了一个很奇怪的现象:在连接VPN代理（ShowdowSocksR）的情况下，可以直接通过web网页访问外网，但无法ping通
-所以我做了个小测试看看是哪边出了问题
-我的PC...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络">计算机网络</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/17/hive/" >
-            
-                <span>Hive实现表的拼接与更新</span>
-        </a>
-        <div class="abstract-content">
-            题面用HIVE实现以下2个需求：
-1.ods_hour 表和 dwd_bd_coordinate 表拼接（拼接条件：两张表的 lng、lat 列相等），生成的数据插入 cdm.dwd_hour ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/14/Hadoop config/" >
-            
-                <span>Ubuntu18 Hadoop+Hive+MySQL开发环境配置手册</span>
-        </a>
-        <div class="abstract-content">
-            前言由于我写的上一篇blog，《hadoop开发环境配置手册》，在环境变量的配置方便出现了问题，导致hadoop用户与主用户的环境变量出现了问题，甚至出现重启之后无法登陆ubuntu图形化界面的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hadoop">hadoop</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hive">hive</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/11/leetcode5/" >
-            
-                <span>LeetCode 5 寻找回文子串</span>
-        </a>
-        <div class="abstract-content">
-            题面给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
-思路
-遇事不决先穷举，如果一时找不到思路的话，那就先暴力求解试一试
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h3><h4 id="张量的阶表示维度"><a href="#张量的阶表示维度" class="headerlink" title="张量的阶表示维度"></a>张量的阶表示维度</h4><p>0阶张量即为标量scalar<br>1阶张量即为向量vector<br>2阶张量即为矩阵matrix<br>n阶张量即为张量tensor</p>
+<h4 id="张量数据类型"><a href="#张量数据类型" class="headerlink" title="张量数据类型"></a>张量数据类型</h4><p>32位整形<br>32位浮点型<br>64位浮点型<br>布尔型<br>字符型</p>
+<h4 id="张量的创建"><a href="#张量的创建" class="headerlink" title="张量的创建"></a>张量的创建</h4><p>tf.constant(张量内容,dtype=数据类型)</p>
+<h5 id="numpy转tensor"><a href="#numpy转tensor" class="headerlink" title="numpy转tensor"></a>numpy转tensor</h5><p>tf.convert_to_tensor(数据名,dtype=数据类型)</p>
+<h5 id="一些特殊的创建"><a href="#一些特殊的创建" class="headerlink" title="一些特殊的创建"></a>一些特殊的创建</h5><p>tf.zeros(维度)    #创建全为0的张量<br>tf.ones(维度)    #创建全为1的张量<br>tf.fill(维度,指定值)        #创建全为指定值的张量</p>
+<h5 id="创建随机tensor"><a href="#创建随机tensor" class="headerlink" title="创建随机tensor"></a>创建随机tensor</h5><p>tf.random.normal(维度,meam=均值,stddev=标准差)    #生成正态分布随机<br>tf.random.truncated_normal(维度,meam=均值,stddev=标准差)    #生成截断式正态分布随机<br>tf.random.uniform(维度,minval=最小值,maxval=最大值)    #生成均匀分布随机</p>
+<h3 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h3><h4 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h4><p>tf.cast(张量名,dtype=数据类型)</p>
+<h4 id="获取维度上最大最小值"><a href="#获取维度上最大最小值" class="headerlink" title="获取维度上最大最小值"></a>获取维度上最大最小值</h4><p>tf.reduce_min(张量名)<br>tf.reduce_max(张量名)</p>
+<h4 id="axis"><a href="#axis" class="headerlink" title="axis"></a>axis</h4><p>用以表示操作轴<br>在二维张量中<br>若axis = 0,则对数据进行纵向操作<br>若axis = 1,则对数据进行横向操作</p>
+<h4 id="variable"><a href="#variable" class="headerlink" title="variable"></a>variable</h4><p>用以将数据标记为”可训练”</p>
+<h4 id="基本四则运算"><a href="#基本四则运算" class="headerlink" title="基本四则运算"></a>基本四则运算</h4><p>tf.add()<br>tf.subtract()<br>tf.multiply()<br>tf.divide()</p>
+<p>只有维度相同的张量才可以进行四则运算</p>
+<h4 id="特征与标签配对"><a href="#特征与标签配对" class="headerlink" title="特征与标签配对"></a>特征与标签配对</h4><p>tf.data.Dataset.from_tensor_slices((输入特征,标签))</p>
+<h4 id="求导"><a href="#求导" class="headerlink" title="求导"></a>求导</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	若干个计算过程</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">grad = tape.gradient(函数,对谁求导)</span><br></pre></td></tr></table></figure>
 
-直接遍历整个字符串寻找回文串，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/10/leetcode8/" >
-            
-                <span>LeetCode 8 正则表达式一行解决！</span>
-        </a>
-        <div class="abstract-content">
-            题面请你来实现一个 atoi 函数，使其能将字符串转换成整数。
-首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
-当我们寻找到的第一个非空字符为正或者负号时，则将...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/10</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "leetcode">leetcode</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "正则表达式">正则表达式</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/04/Line_rotate/" >
-            
-                <span>直线绕点集变换中心旋转</span>
-        </a>
-        <div class="abstract-content">
-            前言题目概述：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">    w = tf.Variable(tf.constant(<span class="number">3.0</span>))</span><br><span class="line">    loss = tf.pow(w,<span class="number">2</span>)</span><br><span class="line">grad = tape.gradient(loss,w)</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">    w = tf.Variable(tf.constant(<span class="number">3.0</span>))</span><br><span class="line">    loss = tf.pow(w,<span class="number">2</span>)</span><br><span class="line">grad = tape.gradient(loss,w)</span><br><span class="line">print(grad)</span><br><span class="line"><span class="comment">#tf.Tensor(6.0, shape=(), dtype=float32)</span></span><br></pre></td></tr></table></figure>
 
-Consider there are n points in a plane, let’s denote the set of points as V, any three p...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图形学">图形学</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/24/video transmission by flask/" >
-            
-                <span>Python3通过flask动态调节码率直播视频并传输</span>
-        </a>
-        <div class="abstract-content">
-            前言之前实现了通过socket套接字传输视频。事实上，效果并不理想，主要原因有二：
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><p>enumerate(列表名)</p>
+<h4 id="独热码"><a href="#独热码" class="headerlink" title="独热码"></a>独热码</h4><p>tf.one_hot(待转换数据,depth=几分类)</p>
+<h4 id="柔性最大值"><a href="#柔性最大值" class="headerlink" title="柔性最大值"></a>柔性最大值</h4><p>tf.nn.softmax(x)    #使输出符合概率分布</p>
+<h4 id="自更新"><a href="#自更新" class="headerlink" title="自更新"></a>自更新</h4><p>需要先用variable定义变量w为可训练<br>w.assign_sub(需要自减的内容)</p>
+<h4 id="最大值索引"><a href="#最大值索引" class="headerlink" title="最大值索引"></a>最大值索引</h4><p>tf.argmax(张量名,axis=操作轴)</p>
+<p>以上内容仅为个人的学习笔记，如果有内容错漏，欢迎大家联系笔者讨论</p>
 
-延迟太过于明显
-图片缺失严重
-
-这导致我们的成果的演示效果非常之差，现在我发现了一个有趣的东西，flask！...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "flask">flask</a>
-    
-</div>
-            
-        </div>
     </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://LiaoYuanF.github.io">fengliaoyuan</a>
+            <p>原文链接：<a href="https://LiaoYuanF.github.io/2020/04/08/tensorflow2.0_1/">https://LiaoYuanF.github.io/2020/04/08/tensorflow2.0_1/</a>
+            <p>发表日期：<a href="https://LiaoYuanF.github.io/2020/04/08/tensorflow2.0_1/">April 8th 2020, 12:00:00 am</a>
+            <p>更新日期：<a href="https://LiaoYuanF.github.io/2020/04/08/tensorflow2.0_1/">April 9th 2020, 2:40:33 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/04/02/network_toptodown_4/" title= "计算机网络:自顶而下学习笔记(第四章)">
+                    <div class="prevTitle">计算机网络:自顶而下学习笔记(第四章)</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -767,6 +559,24 @@ Consider there are n points in a plane, let’s denote the set of points as V, a
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#张量"><span class="toc-number">1.</span> <span class="toc-text">张量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#张量的阶表示维度"><span class="toc-number">1.1.</span> <span class="toc-text">张量的阶表示维度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#张量数据类型"><span class="toc-number">1.2.</span> <span class="toc-text">张量数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#张量的创建"><span class="toc-number">1.3.</span> <span class="toc-text">张量的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#numpy转tensor"><span class="toc-number">1.3.1.</span> <span class="toc-text">numpy转tensor</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一些特殊的创建"><span class="toc-number">1.3.2.</span> <span class="toc-text">一些特殊的创建</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建随机tensor"><span class="toc-number">1.3.3.</span> <span class="toc-text">创建随机tensor</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用函数"><span class="toc-number">2.</span> <span class="toc-text">常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#强制类型转换"><span class="toc-number">2.1.</span> <span class="toc-text">强制类型转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取维度上最大最小值"><span class="toc-number">2.2.</span> <span class="toc-text">获取维度上最大最小值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#axis"><span class="toc-number">2.3.</span> <span class="toc-text">axis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#variable"><span class="toc-number">2.4.</span> <span class="toc-text">variable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本四则运算"><span class="toc-number">2.5.</span> <span class="toc-text">基本四则运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特征与标签配对"><span class="toc-number">2.6.</span> <span class="toc-text">特征与标签配对</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求导"><span class="toc-number">2.7.</span> <span class="toc-text">求导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#枚举"><span class="toc-number">2.8.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#独热码"><span class="toc-number">2.9.</span> <span class="toc-text">独热码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#柔性最大值"><span class="toc-number">2.10.</span> <span class="toc-text">柔性最大值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自更新"><span class="toc-number">2.11.</span> <span class="toc-text">自更新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大值索引"><span class="toc-number">2.12.</span> <span class="toc-text">最大值索引</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1391,6 +1201,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
